@@ -1,1 +1,1 @@
-/home/k6b/.zprofile
+eval `ssh-agent`
