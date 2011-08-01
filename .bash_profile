@@ -1,1 +1,1 @@
-. $HOME/.bashrc
+/home/k6b/.bash_profile

@@ -1,0 +1,1 @@
+/home/k6b/.zprofile
