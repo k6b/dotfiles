@@ -1,0 +1,6 @@
+#SET AUR_MSG_0 up to date
+#SET AUR_MSG_1 1 new pkg
+#SET AUR_MSG_N %AUR_N% new pkgs
+#
+${color}AUR status ${alignr}%AUR_MSG%
+${color}%AUR_PKG_NAME% ${alignr}%AUR_PKG_VER%
