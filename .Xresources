@@ -1,0 +1,17 @@
+URxvt.depth: 32
+URxvt.background: rgba:1111/1111/1111/dddd
+!Window Colors
+URxvt*foreground: White
+URxvt*background: Black
+!Scrollbar
+URxvt*scrollBar_right: true
+!Default Window Size
+Rxvt*geometry:80x25
+!Fonts
+URxvt*font: xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=14:antialias=true:hinting=true
+!Tabs
+URxvt.perl-ext-common: default,tabbed,matcher,clipboard
+!clickable url
+URxvt.urlLauncher:      /usr/bin/google-chrome
+URxvt.matcher.button:   1
