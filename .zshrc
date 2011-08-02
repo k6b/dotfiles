@@ -37,8 +37,7 @@ promptinit
 alias sshsamy='ssh k6b@192.168.1.3'
 alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
 alias sftpweb='sftp -P 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias ec2root='ssh -i ~/.ssh/k6bkey.pem root@git.kyleberry.org'
-alias ec2k6b='ssh -i ~/.ssh/k6bkey.pem k6b@git.kyleberry.org'
+alias ec2k6b='ssh k6b@git.kyleberry.org'
 
 #alias ls='ls -a --color=auto'
 alias grep='grep --color=auto'

@@ -1,3 +1,10 @@
+! ----------------------------------------------------------------------------
+!  file:     ~/.Xresources
+!  author:   Kyle Berry - http://kyleberry.org
+!  modified: Aug 2011
+! ----------------------------------------------------------------------------
+
+
 URxvt*termName: rxvt
 URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
