@@ -3,4 +3,4 @@
 #SET MSG_N %N% new pkgs
 #
 ${color}repo status ${alignr}%MSG%
-$color%PKG_NAME% ${alignr}%PKG_VER%
+${color}%PKG_NAME% ${alignr}%PKG_VER%
