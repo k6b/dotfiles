@@ -2,5 +2,5 @@
 #SET MSG_1 1 new pkg
 #SET MSG_N %N% new pkgs
 #
-${color}repo status ${alignr}%MSG%
-${color}%PKG_NAME% ${alignr}%PKG_VER%
+repo status ${alignr}%MSG%${voffset 5}
+%PKG_REPO%/%PKG_NAME% ${alignr}%PKG_VER%

@@ -50,7 +50,6 @@ own_window_argb_visual yes
 own_window_type normal
 own_window_class Conky
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-#own_window_type desktop
 stippled_borders 0
 update_interval 1.0
 uppercase no
@@ -88,4 +87,5 @@ ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
 ${color lightgrey} ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
 ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 $hr
-${execpi 150 python ~/.scripts/gmail.py}
+${execpi 150 python ~/gmail.py}
+$hr
