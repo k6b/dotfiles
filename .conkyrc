@@ -81,6 +81,9 @@ $hr
 ${execpi 3600 paconky ~/repos.paconky}
 ${execpi 3600 paconky ~/aur.paconky}
 $hr
+${color grey}reddit.com$alignr${color grey}4wd22r${color white}
+${execpi 300 wget -O - http://www.reddit.com/user/4wd22r/about.json | awk '{match($0, "k_karma\": ([0-9]+)", a); match($0, "t_karma\": ([0-9]+)", b); print "Link karma:${color dimgrey}", a[1], "$alignr ${color white}Comment karma:${color dimgrey}", b[1];}'}
+$hr
 ${color grey} Name             PID     CPU%   MEM%
 ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
