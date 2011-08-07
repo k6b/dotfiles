@@ -38,7 +38,8 @@ use_xft yes
 xftfont DejaVu Sans Mono:size=10
 gap_x 5
 gap_y 60
-minimum_size 5 5
+minimum_size 1024 300
+maximum_width 300
 net_avg_samples 2
 no_buffers yes
 out_to_console no
@@ -77,13 +78,29 @@ ${color grey}File systems:$color
  /home $color${fs_used /home}/${fs_size /home} ${fs_bar 4 /home}
 ${color grey}Networking:
 Up:$color ${upspeed wlan0} ${color grey} - Down:$color ${downspeed wlan0}
+
+${color}In-Conn ${alignr} Local Service/Port$color
+ ${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+ ${tcp_portmon 1 32767 rhost 1} ${alignr} ${tcp_portmon 1 32767 lservice 1}
+# ${tcp_portmon 1 32767 rhost 2} ${alignr} ${tcp_portmon 1 32767 lservice 2}
+# ${tcp_portmon 1 32767 rhost 3} ${alignr} ${tcp_portmon 1 32767 lservice 3}
+# ${tcp_portmon 1 32767 rhost 4} ${alignr} ${tcp_portmon 1 32767 lservice 4}
+# ${tcp_portmon 1 32767 rhost 5} ${alignr} ${tcp_portmon 1 32767 lservice 5}
+${color}Out-Conn ${alignr} Remote Service/Port$color
+ ${tcp_portmon 32768 61000 rhost 0} ${alignr} ${tcp_portmon 32768 61000 rservice 0}
+ ${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1}
+ ${tcp_portmon 32768 61000 rhost 2} ${alignr} ${tcp_portmon 32768 61000 rservice 2}
+ ${tcp_portmon 32768 61000 rhost 3} ${alignr} ${tcp_portmon 32768 61000 rservice 3}
+ ${tcp_portmon 32768 61000 rhost 4} ${alignr} ${tcp_portmon 32768 61000 rservice 4}
+ ${tcp_portmon 32768 61000 rhost 5} ${alignr} ${tcp_portmon 32768 61000 rservice 5}
+
 $hr
 ${execpi 3600 paconky ~/repos.paconky}
 ${execpi 3600 paconky ~/aur.paconky}
 $hr
 ${color grey}reddit.com$alignr${color grey}4wd22r${color white}
 ${execpi 300 wget -O - http://www.reddit.com/user/4wd22r/about.json | awk '{match($0, "k_karma\": ([0-9]+)", a); match($0, "t_karma\": ([0-9]+)", b); print "Link karma:${color dimgrey}", a[1], "$alignr ${color white}Comment karma:${color dimgrey}", b[1];}'}
-$hr
+${color white}$hr
 ${color grey} Name             PID     CPU%   MEM%
 ${color lightgrey} ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
 ${color lightgrey} ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
