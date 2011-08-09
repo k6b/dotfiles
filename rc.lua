@@ -198,8 +198,8 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
-        cpuwidget,
         s == 1 and mysystray or nil,
+        cpuwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -396,5 +396,5 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- }}}
 --awful.util.spawn_with_shell("run_once xcompmgr")
 --awful.util.spawn_with_shell("run_once dropboxd")
---awful.util.spawn_with_shell("run_once nm-applet")
+--awful.util.spawn_with_shell("nm-applet")
 --awful.util.spawn_with_shell("xrdb ~/.Xresources")
