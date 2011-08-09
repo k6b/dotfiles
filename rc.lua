@@ -57,10 +57,31 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myinternetmenu = {
-    { "chrome", "google-chrome" }
+internetmenu = {
+    { "chrome", "google-chrome" },
+    { "transmission", "transmission-gtk" },
+    { "zenmap", "zenmap" },
+    { "zenmap-root", terminal .. "sudo zenmap" }
 }
 
+officemenu = {
+    { "abiword", "abiword" }
+}
+
+soundvideomenu = {
+    { "banshee", "banshee" },
+    { "vlc" , "vlc" }
+}
+
+graphicsmenu = {
+    { "gimp", "gimp" },
+    { "inkscape", "inkscape" }
+}
+
+systoolsmenu = {
+    { "htop", terminal .. "htop" },
+    { "cups", "google-chrome localhost:631" }
+}
 
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
@@ -70,7 +91,11 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "interwebs", myinternetmenu },
+                                    { "interwebs", internetmenu },
+                                    { "office", officemenu },
+                                    { "graphics", graphicsmenu },
+                                    { "sound/video", soundvideomenu },
+                                    { "systools", systoolsmenu },
                                     { "open terminal", terminal },
                                     { "", nil},
                                     { "reboot", "/sbin/shutdown -r now"},
@@ -82,10 +107,12 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
                                      menu = mymainmenu })
 -- }}}
 
+
+-- {{{ Wibox
 -- Initialize widget
 cpuwidget = widget({ type = "textbox" })
 -- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1%")-- {{{ Wibox
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1%")
 
 
 -- Create a textclock widget
