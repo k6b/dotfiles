@@ -61,7 +61,7 @@ internetmenu = {
     { "chrome", "google-chrome" },
     { "transmission", "transmission-gtk" },
     { "zenmap", "zenmap" },
-    { "zenmap-root", terminal .. "sudo zenmap" }
+    { "zenmap-root", terminal .. " -e sudo zenmap" }
 }
 
 officemenu = {
@@ -79,7 +79,7 @@ graphicsmenu = {
 }
 
 systoolsmenu = {
-    { "htop", terminal .. "htop" },
+    { "htop", terminal .. " -e htop" },
     { "cups", "google-chrome localhost:631" }
 }
 
@@ -109,6 +109,7 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 
 -- {{{ Wibox
+
 -- Initialize widget
 cpuwidget = widget({ type = "textbox" })
 -- Register widget
@@ -197,9 +198,9 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        cpuwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
-        cpuwidget,
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
