@@ -14,9 +14,11 @@ compinit
 # End of lines added by compinstall
 
 #cowsay and fortune
-command cowsay $(fortune -a)
-echo ""
-echo ""
+#command cowsay $(fortune -a)
+#echo ""
+#echo ""
+
+alsi
 
 #Autocomplete
 zstyle ':completion:*' menu select
