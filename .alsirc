@@ -1,0 +1,84 @@
+#!perl
+# ALSI RC file
+
+__CONFIG__
+# Text color for values
+$text_color        = 1;
+
+# Color for RAM and HDD usage percents
+$usage_colors      = 0;
+
+# Bold text color for usage percents
+$bold_usage        = 0;
+
+# Use Arch logo from screenfetch
+$newlogo           = 0;
+
+# Use Arch logo from archey
+$archey            = 1;
+
+# Print all data as a list
+$list              = 0;
+
+# Default logo file
+$default_logo_file = '/home/k6b/.alsi_logo';
+
+# Use logo from file
+$logo_from_file    = 0;
+
+# Percent colors (if $usage < 50 use color 3 and so on)
+# 1 - blue
+# 2 - red
+# 3 - green
+# 4 - yellow
+# 5 - black
+# 6 - purple
+# 7 - cyan
+# 8 - white
+@percent_and_colors = ( 50, 3, 85, 4, 100, 2 );
+
+
+__OUTPUT__
+# Operating system
+&print("${c2}OS:$z $distro");
+
+# Hostname
+&print("${c2}Hostname:$z $hostname\n");
+
+# Kernel
+&print("${c2}Kernel:$z $kernel\n");
+
+# Shell
+&print("${c2}Shell:$z $SH\n");
+
+# Uptime
+&print("${c2}Uptime:$z $uptime\n");
+
+# Packages
+&print("${c2}Packages:$z $pkgs");
+
+# Window manager or DE
+&print("$wm_or_de_name\n");
+
+# GTK theme
+&print("${c2}GTK theme:$z $gtk_theme\n")   if $gtk_theme;
+
+# Icon theme
+&print("${c2}Icon theme:$z $icon_theme\n") if $icon_theme;
+
+# Font name
+&print("${c2}Font name:$z $font_name\n")   if $font_name;
+
+# RAM
+&print("${c2}RAM:$z $usedram MB$z / $totalram MB$z\n");
+
+# CPU
+&print("${c2}CPU:$z $cpu\n");
+
+# CPU load average
+&print("${c2}Load average:$z $load_average\n");
+
+
+############################################################
+__PARTITIONS_HERE__
+############################################################
