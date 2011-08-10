@@ -7,7 +7,8 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Obvious widgets
+-- Bottom Widgets
+--require("widgetsbottom")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -28,7 +29,7 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.floating,
+    --awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -80,6 +81,7 @@ graphicsmenu = {
 
 systoolsmenu = {
     { "htop", terminal .. " -e htop" },
+    { "ncdu", terminal .. " -e ncdu /" },
     { "cups", "google-chrome localhost:631" }
 }
 
@@ -110,10 +112,29 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
--- Initialize widget
+-- Volume widget
+volwidget = widget({ type = "textbox" })
+vicious.register(volwidget, vicious.widgets.volume,
+    function (widget, args)
+        if args[1] == 0 or args [2] == "♩" then
+            return "" .. colblk .. "vol" .. coldef .. colbred .. "mute" .. coldeg .. ""
+        else
+            return "" .. colblk .. "vol" .. coldef .. colbblk .. args[1] .. "% " .. coldef .. ""
+        end
+    end, 2, "Master" )
+volwidget:buttons(
+    awful.util.table.join(
+        awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
+        awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
+        awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
+        awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
+    )
+)
+
+-- Initialize cpu widget
 cpuwidget = widget({ type = "textbox" })
--- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1%")
+-- Register cpu widget
+vicious.register(cpuwidget, vicious.widgets.cpu, "CPU: $1%")
 
 
 -- Create a textclock widget
@@ -124,6 +145,7 @@ mysystray = widget({ type = "systray" })
 
 -- Create a wibox for each screen and add it
 mywibox = {}
+infobox = {}
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -199,10 +221,22 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
-        cpuwidget,
-        mytasklist[s],
+        --cpuwidget,
+        --mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
+
+    infobox[s] = awful.wibox({ position = "bottom", size = 14, screen = s })
+    infobox[s].widgets = { 
+        {
+            layout = awful.widget.layout.horizontal.leftright 
+        },
+        cpuwidget,
+        volwidget,
+        mytasklist[s],
+        layout = awful.widget.layout.horizontal.rightleft
+     }
+
 end
 -- }}}
 
@@ -397,4 +431,12 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 --awful.util.spawn_with_shell("run_once xcompmgr")
 --awful.util.spawn_with_shell("run_once dropboxd")
 --awful.util.spawn_with_shell("nm-applet")
---awful.util.spawn_with_shell("xrdb ~/.Xresources")
+awful.util.spawn_with_shell("xrdb ~/.Xresources")
+
+function run_once(prg)
+      awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+  end
+
+run_once("nm-applet")
+run_once("dropboxd")
+run_once("xcompmgr")
