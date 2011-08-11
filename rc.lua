@@ -7,8 +7,8 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Bottom Widgets
---require("widgetsbottom")
+-- Obvious widgets
+require("obvious.volume_alsa")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -47,8 +47,8 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "Don't", "Panic!", 3, 4, 5, 6, 7, 8, 9 },
-    layout = { layouts[4], layouts[2], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
+    names  = { "Don't", "Panic!", "::k6b::", 4, 5, 6, 7, 8, 9 },
+    layout = { layouts[4], layouts[4], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -98,10 +98,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "graphics", graphicsmenu },
                                     { "sound/video", soundvideomenu },
                                     { "systools", systoolsmenu },
-                                    { "open terminal", terminal },
-                                    { "", nil},
-                                    { "reboot", "/sbin/shutdown -r now"},
-                                    { "shutdown", "/sbin/shutdown -h now"}
+                                    { "open terminal", terminal }
                                   }
                         })
 
@@ -112,30 +109,13 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
--- Volume widget
-volwidget = widget({ type = "textbox" })
-vicious.register(volwidget, vicious.widgets.volume,
-    function (widget, args)
-        if args[1] == 0 or args [2] == "♩" then
-            return "" .. colblk .. "vol" .. coldef .. colbred .. "mute" .. coldeg .. ""
-        else
-            return "" .. colblk .. "vol" .. coldef .. colbblk .. args[1] .. "% " .. coldef .. ""
-        end
-    end, 2, "Master" )
-volwidget:buttons(
-    awful.util.table.join(
-        awful.button({ }, 1, function () awful.util.spawn("amixer -q sset Master toggle")   end),
-        awful.button({ }, 3, function () awful.util.spawn( terminal .. " -e alsamixer")   end),
-        awful.button({ }, 4, function () awful.util.spawn("amixer -q sset Master 2dB+") end),
-        awful.button({ }, 5, function () awful.util.spawn("amixer -q sset Master 2dB-") end)
-    )
-)
+-- Initalize volume widget
+--obvious.volume_alsa.setchannel(0, "PCM")
 
 -- Initialize cpu widget
 cpuwidget = widget({ type = "textbox" })
 -- Register cpu widget
 vicious.register(cpuwidget, vicious.widgets.cpu, "CPU: $1%")
-
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
@@ -221,7 +201,6 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
-        --cpuwidget,
         --mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -232,7 +211,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright 
         },
         cpuwidget,
-        volwidget,
+        -- obvious.volume_alsa(),
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
      }
