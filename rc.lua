@@ -7,8 +7,6 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
--- Obvious widgets
-require("obvious.volume_alsa")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -109,13 +107,13 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
--- Initalize volume widget
---obvious.volume_alsa.setchannel(0, "PCM")
+-- Date widget
+datewidget = widget({ type = "textbox" })
+vicious.register(datewidget, vicious.widgets.date, "%b %d, %R, %T", 1)
 
--- Initialize cpu widget
-cpuwidget = widget({ type = "textbox" })
--- Register cpu widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "CPU: $1%")
+--Mem widget
+memwidget = widget({ type = "textbox" })
+vicious.register(memwidget, vicious.widgets.mem, "$1% ($2Mb/$3Mb)", 13)
 
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
@@ -199,7 +197,8 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
-        mytextclock,
+        --mytextclock,
+	datewidget,
         s == 1 and mysystray or nil,
         --mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -210,8 +209,8 @@ for s = 1, screen.count() do
         {
             layout = awful.widget.layout.horizontal.leftright 
         },
-        cpuwidget,
-        -- obvious.volume_alsa(),
+	--datewidget,
+	memwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
      }
