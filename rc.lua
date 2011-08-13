@@ -45,8 +45,8 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "Don't", "Panic!", "::k6b::", 4, 5, 6, 7, 8, 9 },
-    layout = { layouts[4], layouts[4], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
+    names  = { "Don't", "Panic!", "::k6b::", ".42.", 5, 6, 7, 8, 9 },
+    layout = { layouts[4], layouts[4], layouts[4], layouts[4], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -80,6 +80,7 @@ graphicsmenu = {
 systoolsmenu = {
     { "htop", terminal .. " -e htop" },
     { "ncdu", terminal .. " -e ncdu /" },
+    { "mc", terminal .. " -e mc ~/" },
     { "cups", "google-chrome localhost:631" }
 }
 
@@ -96,7 +97,10 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "graphics", graphicsmenu },
                                     { "sound/video", soundvideomenu },
                                     { "systools", systoolsmenu },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+				    { "", nil },
+				    { "reboot", terminal .. " -e sudo shutdown -r now" },
+				    { "shutdown", terminal .. " -e sudo shutdown -h now"}
                                   }
                         })
 
@@ -107,16 +111,37 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
+-- Weather widget
+--weathericon = widget({ type = "imagebox" )}
+--weathericon = image(beautiful.widget_weather)
+--weatherwidget = widget({ type = "textbox" )}
+--vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}", 3600, "KAUS")
+
+-- Volume widget
+--volwidget = widget({ type = "textbox" })
+--vicious.register.widget(volwidget, vicious.widgets.volume, " $1% ", 2, "PCM")
+
+-- Net widget
+--netwidget = widget({ type = "textbox" })
+--vicious.register(netwidget, vicious.widgets.net, '<span color="'
+--	.. beautiful.fg_netdn_widget ..'">${eth0 down_kb}</span> <span color="'
+--	.. beautiful.fg.netup_widget ..'">${eth0 up_kb}</span>, 3)
+
 -- Date widget
 datewidget = widget({ type = "textbox" })
-vicious.register(datewidget, vicious.widgets.date, "%b %d, %R, %T", 1)
+vicious.register(datewidget, vicious.widgets.date, "%b %d, %r ", 1)
 
---Mem widget
+-- Uptime widget
+uptimewidget = widget({ type = "textbox" })
+vicious.register(uptimewidget, vicious.widgets.uptime, " Uptime: $2 hr $3 min $4 $5 $6 ")
+
+-- Mem widget
 memwidget = widget({ type = "textbox" })
-vicious.register(memwidget, vicious.widgets.mem, "$1% ($2Mb/$3Mb)", 13)
+vicious.register(memwidget, vicious.widgets.mem, " Memory: $1% ($2Mb/$3Mb) ", 13)
 
--- Create a textclock widget
-mytextclock = awful.widget.textclock({ align = "right" })
+-- CPU widget
+cpuwidget = widget({ type = "textbox" })
+vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% ")
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -197,21 +222,24 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
-        --mytextclock,
 	datewidget,
         s == 1 and mysystray or nil,
-        --mytasklist[s],
+        mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
 
     infobox[s] = awful.wibox({ position = "bottom", size = 14, screen = s })
     infobox[s].widgets = { 
         {
+	    --weathericon,
+	    --weatherwidget,
             layout = awful.widget.layout.horizontal.leftright 
         },
-	--datewidget,
+	--volwidget,
 	memwidget,
-        mytasklist[s],
+	cpuwidget,
+	uptimewidget,
+	--netwidget,
         layout = awful.widget.layout.horizontal.rightleft
      }
 
@@ -406,15 +434,4 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
---awful.util.spawn_with_shell("run_once xcompmgr")
---awful.util.spawn_with_shell("run_once dropboxd")
---awful.util.spawn_with_shell("nm-applet")
-awful.util.spawn_with_shell("xrdb ~/.Xresources")
 
-function run_once(prg)
-      awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
-  end
-
-run_once("nm-applet")
-run_once("dropboxd")
-run_once("xcompmgr")
