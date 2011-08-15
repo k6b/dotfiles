@@ -1,5 +1,4 @@
 -- Standard awesome library
-require("vicious")
 require("awful")
 require("awful.autofocus")
 require("awful.rules")
@@ -7,6 +6,8 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+-- Widgets library
+require("vicious")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -58,7 +59,9 @@ end
 -- Create a laucher widget and a main menu
 internetmenu = {
     { "chrome", "google-chrome" },
-    { "transmission", "transmission-gtk" },
+    { "rtorrent", terminal .. " -e screen rtorrent" },
+    { "irssi", terminal .. " -e irssi" },
+    { "centerim", terminal .. " -e screen centerim" },
     { "zenmap", "zenmap" },
     { "zenmap-root", terminal .. " -e sudo zenmap" }
 }
@@ -68,7 +71,6 @@ officemenu = {
 }
 
 soundvideomenu = {
-    { "banshee", "banshee" },
     { "vlc" , "vlc" }
 }
 
@@ -99,8 +101,8 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "systools", systoolsmenu },
                                     { "open terminal", terminal },
 				    { "", nil },
-				    { "reboot", terminal .. " -e sudo shutdown -r now" },
-				    { "shutdown", terminal .. " -e sudo shutdown -h now"}
+				    { "reboot", terminal .. " -e sudo /sbin/reboot" },
+				    { "shutdown", terminal .. " -e sudo /sbin/shutdown -h now"}
                                   }
                         })
 
@@ -122,14 +124,12 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 --vicious.register.widget(volwidget, vicious.widgets.volume, " $1% ", 2, "PCM")
 
 -- Net widget
---netwidget = widget({ type = "textbox" })
---vicious.register(netwidget, vicious.widgets.net, '<span color="'
---	.. beautiful.fg_netdn_widget ..'">${eth0 down_kb}</span> <span color="'
---	.. beautiful.fg.netup_widget ..'">${eth0 up_kb}</span>, 3)
+netwidget = widget({ type = "textbox" })
+vicious.register(netwidget, vicious.widgets.net, " Up: ${wlan0 up_kb} Down: ${wlan0 down_kb} ", nil, nil, 3)
 
 -- Date widget
 datewidget = widget({ type = "textbox" })
-vicious.register(datewidget, vicious.widgets.date, "%b %d, %r ", 1)
+vicious.register(datewidget, vicious.widgets.date, " %b %d, %r ", 1)
 
 -- Uptime widget
 uptimewidget = widget({ type = "textbox" })
@@ -222,7 +222,7 @@ for s = 1, screen.count() do
             layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
-	datewidget,
+    	datewidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -231,7 +231,8 @@ for s = 1, screen.count() do
     infobox[s] = awful.wibox({ position = "bottom", size = 14, screen = s })
     infobox[s].widgets = { 
         {
-	    --weathericon,
+	    netwidget,
+        --weathericon,
 	    --weatherwidget,
             layout = awful.widget.layout.horizontal.leftright 
         },
@@ -239,7 +240,6 @@ for s = 1, screen.count() do
 	memwidget,
 	cpuwidget,
 	uptimewidget,
-	--netwidget,
         layout = awful.widget.layout.horizontal.rightleft
      }
 
@@ -398,9 +398,11 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    --{ rule = { class = "Ssh Password" },
+    --  properties = { floating = true } }.
+    -- Set Chrome to always map on tags number 2 of screen 1.
+    -- { rule = { class = "Google Chrome" },
+    --  properties = { tag = tags[1][2] } },
 }
 -- }}}
 
