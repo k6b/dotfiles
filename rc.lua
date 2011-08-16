@@ -113,19 +113,34 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 -- {{{ Wibox
 
+separator = widget({ type = "textbox" })
+separator.text  = " :: "
+
 -- Weather widget
---weathericon = widget({ type = "imagebox" )}
---weathericon = image(beautiful.widget_weather)
---weatherwidget = widget({ type = "textbox" )}
---vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}", 3600, "KAUS")
+weatherwidget = widget({ type = "textbox" })
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}° ${humid}%", 3600, "KAUS")
 
 -- Volume widget
---volwidget = widget({ type = "textbox" })
---vicious.register.widget(volwidget, vicious.widgets.volume, " $1% ", 2, "PCM")
+volwidget = widget({ type = "textbox" })
+vicious.register(volwidget, vicious.widgets.volume, "$1% $2", 1, "Master")
+volwidget:buttons(awful.util.table.join(
+    awful.button({ }, 1, function () awful.util.spawn("amixer -q set Master toggle", false) end),
+    awful.button({ }, 3, function () awful.util.spawn("urxvt -e alsamixer", true) end),
+    awful.button({ }, 4, function () awful.util.spawn("amixer -q set Master 1dB+", false) end),
+    awful.button({ }, 5, function () awful.util.spawn("amixer -q set Master 1dB-", false) end)
+))
+
+-- File system widget
+fswidget = widget({ type = "textbox" })
+vicious.register(fswidget, vicious.widgets.fs, "/boot-${/boot used_p}% /-${/ used_p}% /home-${/home used_p}% /var-${/var used_p}%", 15)
+
+-- Packages widget
+pkgwidget = widget({ type = "textbox" })
+vicious.register(pkgwidget, vicious.widgets.pkg, "Updates: $1", 1801, "Arch")
 
 -- Net widget
 netwidget = widget({ type = "textbox" })
-vicious.register(netwidget, vicious.widgets.net, " Up: ${wlan0 up_kb} Down: ${wlan0 down_kb} ", nil, nil, 3)
+vicious.register(netwidget, vicious.widgets.net, "Up: ${wlan0 up_kb} Down: ${wlan0 down_kb}", nil, nil, 3)
 
 -- Date widget
 datewidget = widget({ type = "textbox" })
@@ -133,15 +148,21 @@ vicious.register(datewidget, vicious.widgets.date, " %b %d, %r ", 1)
 
 -- Uptime widget
 uptimewidget = widget({ type = "textbox" })
-vicious.register(uptimewidget, vicious.widgets.uptime, " Uptime: $2 hr $3 min $4 $5 $6 ")
+vicious.register(uptimewidget, vicious.widgets.uptime, "Uptime: $2 hr $3 min $4 $5 $6")
 
 -- Mem widget
 memwidget = widget({ type = "textbox" })
-vicious.register(memwidget, vicious.widgets.mem, " Memory: $1% ($2Mb/$3Mb) ", 13)
+vicious.register(memwidget, vicious.widgets.mem, "RAM: $1% Swap: $5%", 13)
 
 -- CPU widget
-cpuwidget = widget({ type = "textbox" })
-vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% ")
+--cpuwidget = widget({ type = "textbox" })
+--vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1% ")
+cpuwidget = awful.widget.graph()
+cpuwidget: set_width(50)
+cpuwidget: set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -223,6 +244,7 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
     	datewidget,
+        cpuwidget.widget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -231,14 +253,20 @@ for s = 1, screen.count() do
     infobox[s] = awful.wibox({ position = "bottom", size = 14, screen = s })
     infobox[s].widgets = { 
         {
-	    netwidget,
-        --weathericon,
-	    --weatherwidget,
+        weatherwidget,
+        separator,
+        netwidget,
+        separator,
+        pkgwidget,
+        separator,
+        fswidget,
+        --separator,
             layout = awful.widget.layout.horizontal.leftright 
         },
-	--volwidget,
+	volwidget,
+    separator,
 	memwidget,
-	cpuwidget,
+    separator,
 	uptimewidget,
         layout = awful.widget.layout.horizontal.rightleft
      }
