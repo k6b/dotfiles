@@ -13,11 +13,6 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
-#cowsay and fortune
-#command cowsay $(fortune -a)
-#echo ""
-#echo ""
-
 alsi
 
 #Autocomplete
@@ -34,6 +29,8 @@ RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
 
 autoload -Uz promptinit
 promptinit
+
+alias rscreen='screen -r'
 
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
@@ -55,6 +52,7 @@ alias update='pacman -Syyu'
 alias remove='pacman -Rsc'
 alias install='pacman -S'
 alias search='pacman -Ss'
+alias icanhaz='pacman -S'
 
 # ls
 alias ls='ls -hF --color=always'
