@@ -46,8 +46,8 @@ layouts =
 -- {{{ Tags
 -- Define a tag table which hold all screen tags.
 tags = {
-    names  = { "Don't", "Panic!", "::k6b::", ".42.", 5, 6, 7, 8, 9 },
-    layout = { layouts[4], layouts[4], layouts[4], layouts[4], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
+    names  = { "Don't", "Panic!", "::k6b::", ".42." }, --5, 6, 7, 8, 9 },
+    layout = { layouts[4], layouts[4], layouts[4], layouts[4]-- layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
@@ -118,7 +118,7 @@ separator.text  = " :: "
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
-vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}° ${humid}%", 3600, "KAUS")
+vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}° ${humid}%", 1800, "KAUS")
 
 -- Volume widget
 volwidget = widget({ type = "textbox" })
@@ -315,6 +315,7 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
+    awful.key({ modkey,           }, "g",     function () awful.util.spawn("google-chrome") end),
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
@@ -465,3 +466,6 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+
+--Start ssh-agent
+awful.util.spawn_with_shell("eval `ssh-agent`")

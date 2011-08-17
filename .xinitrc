@@ -16,10 +16,13 @@ fi
 # exec startxfce4
 # ...or the Window Manager of your choice
 
-xrdb ~/.Xresources &
+#Load terminal settings
+xrdb ~/.Xresources
+
+#Autostart Programs
 xcompmgr &
 nm-applet &
 dropboxd &
-eval `ssh-agent` &
+#eval `ssh-agent` &
 
 exec ck-launch-session awesome
