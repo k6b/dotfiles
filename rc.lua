@@ -101,7 +101,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "systools", systoolsmenu },
                                     { "open terminal", terminal },
 				    { "", nil },
-				    { "reboot", terminal .. " -e sudo /sbin/reboot" },
+				    { "reboot", "/sbin/reboot" },
 				    { "shutdown", "sudo /sbin/shutdown -h now"}
                                   }
                         })
