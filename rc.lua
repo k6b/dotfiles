@@ -14,8 +14,8 @@ require("vicious")
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
-editor = os.getenv("EDITOR") or "vim"
+terminal = "urxvtc"
+editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -63,7 +63,7 @@ internetmenu = {
     { "irssi", terminal .. " -e irssi" },
     { "centerim", terminal .. " -e screen centerim" },
     { "zenmap", "zenmap" },
-    { "zenmap-root", terminal .. " -e sudo zenmap" }
+    { "zenmap-root", "gksu zenmap" }
 }
 
 officemenu = {
@@ -102,7 +102,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "open terminal", terminal },
 				    { "", nil },
 				    { "reboot", terminal .. " -e sudo /sbin/reboot" },
-				    { "shutdown", terminal .. " -e sudo /sbin/shutdown -h now"}
+				    { "shutdown", "sudo /sbin/shutdown -h now"}
                                   }
                         })
 

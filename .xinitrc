@@ -23,6 +23,7 @@ xrdb ~/.Xresources
 xcompmgr &
 nm-applet &
 dropboxd &
-#eval `ssh-agent` &
+urxvtd &
 
+#Start WM
 exec ck-launch-session awesome
