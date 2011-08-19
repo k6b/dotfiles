@@ -67,7 +67,8 @@ internetmenu = {
 }
 
 officemenu = {
-    { "abiword", "abiword" }
+    { "abiword", "abiword" },
+    { "vim", terminal .. " -e vim" }
 }
 
 soundvideomenu = {
@@ -83,6 +84,7 @@ systoolsmenu = {
     { "htop", terminal .. " -e htop" },
     { "ncdu", terminal .. " -e ncdu /" },
     { "mc", terminal .. " -e mc ~/" },
+    { "pcmanfm", "pcmanfm" },
     { "cups", "google-chrome localhost:631" }
 }
 
