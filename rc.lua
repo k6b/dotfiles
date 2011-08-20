@@ -72,7 +72,8 @@ officemenu = {
 }
 
 soundvideomenu = {
-    { "vlc" , "vlc" }
+    { "vlc", "vlc" },
+    { "ghb", "ghb" }
 }
 
 graphicsmenu = {
@@ -120,11 +121,11 @@ separator.text  = " :: "
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
-vicious.register(weatherwidget, vicious.widgets.weather, "${tempf}° ${humid}%", 1800, "KAUS")
+vicious.register(weatherwidget, vicious.widgets.weather, " ${tempf}° ${humid}%", 1800, "KAUS")
 
 -- Volume widget
 volwidget = widget({ type = "textbox" })
-vicious.register(volwidget, vicious.widgets.volume, "$1% $2", 1, "Master")
+vicious.register(volwidget, vicious.widgets.volume, "$1% $2 ", 1, "Master")
 volwidget:buttons(awful.util.table.join(
     awful.button({ }, 1, function () awful.util.spawn("amixer -q set Master toggle", false) end),
     awful.button({ }, 3, function () awful.util.spawn("urxvtc -e alsamixer", true) end),
