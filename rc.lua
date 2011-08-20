@@ -104,7 +104,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "systools", systoolsmenu },
                                     { "open terminal", terminal },
 				    { "", nil },
-				    { "reboot", "/sbin/reboot" },
+				    { "reboot", "sudo /sbin/reboot" },
 				    { "shutdown", "sudo /sbin/shutdown -h now"}
                                   }
                         })
@@ -118,6 +118,14 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 
 separator = widget({ type = "textbox" })
 separator.text  = " :: "
+
+-- Reddit widget
+--redditwidget = widget({ type = "textbox" })
+--redditwidget.text = awful.util.pread ( ~/reddit.sh )
+
+
+
+
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
