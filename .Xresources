@@ -10,7 +10,7 @@ URxvt.depth: 32
 URxvt.background: rgba:1111/1111/1111/dddd
 !Window Colors
 !URxvt*foreground: White
-!URxvt*background: Black
+URxvt*background: Black
 !Scrollbar
 URxvt*scrollBar:none
 !Default Window Size

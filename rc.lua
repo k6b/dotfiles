@@ -119,13 +119,9 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 separator = widget({ type = "textbox" })
 separator.text  = " :: "
 
--- Reddit widget
---redditwidget = widget({ type = "textbox" })
---redditwidget.text = awful.util.pread ( ~/reddit.sh )
-
-
-
-
+-- Gmail widget
+gmailwidget = widget ({ type = "textbox" })
+vicious.register(gmailwidget, vicious.widgets.gmail, " Mail: ${count} ", 300)
 
 -- Weather widget
 weatherwidget = widget({ type = "textbox" })
@@ -257,6 +253,7 @@ for s = 1, screen.count() do
     	datewidget,
         cpuwidget.widget,
         s == 1 and mysystray or nil,
+        gmailwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
