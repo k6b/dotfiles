@@ -8,6 +8,8 @@ require("beautiful")
 require("naughty")
 -- Widgets library
 require("vicious")
+-- Scratchpad
+require("scratch")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -292,6 +294,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({ modkey,           }, "F12",    function () scratch.drop("urxvtc", "bottom") end),
+    awful.key({ modkey,           }, "s",      function () scratch.pad.toggle() end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -352,6 +356,7 @@ globalkeys = awful.util.table.join(
 )
 
 clientkeys = awful.util.table.join(
+    awful.key({ modkey,           }, "d",      function (c) scratch.pad.set(c, 0.60, 0.60, true) end),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
