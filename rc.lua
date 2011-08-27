@@ -301,6 +301,7 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
+    awful.key({                   }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/pictures/screenshots 2>/dev/null'") end),
     awful.key({ modkey,           }, "F12",    function () scratch.drop("urxvtc", "bottom") end),
     awful.key({ modkey,           }, "s",      function () scratch.pad.toggle() end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -451,7 +452,7 @@ awful.rules.rules = {
     --  properties = { floating = true } }.
     -- Set Chrome to always map on tags number 2 of screen 1.
     -- { rule = { class = "Google Chrome" },
-    --  properties = { tag = tags[1][2] } },
+    --   properties = { tags =[1],[2] } },
 }
 -- }}}
 
