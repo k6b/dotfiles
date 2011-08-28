@@ -11,19 +11,30 @@ if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
     echo "D-Bus per-session daemon address is: $DBUS_SESSION_BUS_ADDRESS"
 fi
 
-# exec gnome-session
-# exec startkde
-# exec startxfce4
-# ...or the Window Manager of your choice
-
-#Load terminal settings
+# Load terminal settings
 xrdb ~/.Xresources
 
-#Autostart Programs
+# Autostart Programs
 xcompmgr &
 nm-applet &
 dropboxd &
 urxvtd &
 
-#Start WM
-exec ck-launch-session awesome
+
+default_session=awesome
+
+case $1 in
+
+awesome)
+
+    # Start WM
+    exec ck-launch-session awesome
+    ;;
+scrotwm)
+    # Start WM
+    exec ck-launch-session scrotwm
+    ;;
+*)
+    exec $default_session
+    ;;
+esac

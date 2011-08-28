@@ -65,6 +65,7 @@ internetmenu = {
     { "irssi", terminal .. " -e irssi" },
     { "centerim", terminal .. " -e screen centerim" },
     { "zenmap", "zenmap" },
+    { "wireshark", "wireshark" },
     { "zenmap-root", "gksu zenmap" }
 }
 

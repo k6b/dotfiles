@@ -13,6 +13,8 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+export PATH=$PATH:/home/k6b/scripts
+
 alsi
 
 #Autocomplete
@@ -45,6 +47,8 @@ alias mkdir='mkdir -p -v'
 alias nano='nano -w'
 alias ping='ping -c 5'
 alias ..='cd ..'
+alias ....="../../.."
+alias .....="../../../.."
 
 # pacman
 alias pacman='sudo pacman-color'
