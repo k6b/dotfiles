@@ -451,8 +451,8 @@ awful.rules.rules = {
     --{ rule = { class = "Ssh Password" },
     --  properties = { floating = true } }.
     -- Set Chrome to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Google Chrome" },
-    --   properties = { tags =[1],[2] } },
+    { rule = { class = "google-chrome" },
+      properties = { tag = tags[1][2] } },
 }
 -- }}}
 
