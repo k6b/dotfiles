@@ -449,8 +449,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    --{ rule = { class = "Ssh Password" },
-    --  properties = { floating = true } }.
+    { rule = { class = "xmessage" },
+      properties = { floating = true } },
     -- Set Chrome to always map on tags number 2 of screen 1.
     { rule = { class = "google-chrome" },
       properties = { tag = tags[1][2] } },
@@ -487,3 +487,9 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+function run_once(prg)
+    awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+end
+
+run_once("areddit.sh")
