@@ -75,8 +75,7 @@ officemenu = {
 }
 
 soundvideomenu = {
-    { "vlc", "vlc" },
-    { "ghb", "ghb" }
+    { "vlc", "vlc" }
 }
 
 graphicsmenu = {
