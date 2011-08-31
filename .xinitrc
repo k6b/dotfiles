@@ -34,11 +34,6 @@ scrotwm)
     # Start WM
     exec ck-launch-session scrotwm
     ;;
-xmonad)
-    trayer --edge top --align right --SetDockType true --SetPartialStrut true
-    q
-    --expand true --width 10 --transparent true --tint 0x191970 --height 12 &
-    ;;
 *)
     exec $default_session
     ;;

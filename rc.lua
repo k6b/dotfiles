@@ -488,8 +488,4 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
-function run_once(prg)
-    awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
-end
-
-run_once("areddit.sh")
+awful.util.spawn_with_shell("/home/k6b/scripts/areddit.sh")

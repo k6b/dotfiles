@@ -39,6 +39,7 @@ alias sshsamy='ssh k6b@192.168.1.3'
 alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
 alias sftpweb='sftp -P 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
 alias ec2k6b='ssh k6b@git.kyleberry.org'
+alias chunkssh='ssh k6b@69.172.212.23'
 
 #alias ls='ls -a --color=auto'
 alias grep='grep --color=auto'
