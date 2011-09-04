@@ -15,10 +15,10 @@ fi
 xrdb ~/.Xresources
 
 # Autostart Programs
-xcompmgr &
-nm-applet &
+runonce xcompmgr &
+runonce nm-applet &
 #dropboxd &
-urxvtd &
+runonce urxvtd &
 
 
 default_session=awesome
@@ -33,6 +33,13 @@ awesome)
 scrotwm)
     # Start WM
     exec ck-launch-session scrotwm
+    ;;
+xmonad)
+    # Start WM
+    trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --tint 0x191970 -- height 12 &
+    xsetroot -cursor_name left_ptr
+    feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-simplyblack-43.png
+    exec ck-launch-session xmonad
     ;;
 *)
     exec $default_session
