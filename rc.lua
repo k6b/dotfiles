@@ -71,6 +71,7 @@ internetmenu = {
 
 officemenu = {
     { "abiword", "abiword" },
+    { "xpdf", "xpdf" },
     { "vim", terminal .. " -e vim" }
 }
 
