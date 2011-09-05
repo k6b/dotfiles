@@ -43,8 +43,10 @@ main = do
         , workspaces = myWorkspaces
         , modMask = mod4Mask
         } `additionalKeys`
-        [ ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s $f mv ~/pictures/screenshots")
-        , ((0, xK_Print), spawn "scrot $f mv ~/pictures/screenshots")
+        [ ((mod4Mask, xK_Print), spawn "sleep 1; scrot -s")
+        , ((0, xK_Print), spawn "'scrot' -e 'mv $f ~/pictures/screenshots'")
+        , ((mod4Mask, xK_g), spawn "google-chrome")
+        , ((mod4Mask, xK_F11), spawn "sudo /sbin/reboot")
+        , ((mod4Mask, xK_F12), spawn "sudo /sbin/shutdown -h now")
+        , ((mod4Mask, xK_p), spawn "dmenu_run -nb black -nf white")
         ]
-
-
