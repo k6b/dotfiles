@@ -10,6 +10,8 @@ myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"]
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , className =? "Keepassx"       --> doFloat
+    , className =? "Google-chrome"  --> doShift "Panic!"
     ]
 myLayoutHook = avoidStruts (Mirror tall ||| tall ||| Full)
     where
@@ -24,14 +26,6 @@ myLogHook h = dynamicLogWithPP xmobarPP
             , ppTitle = xmobarColor "green" "" . shorten 50
             }
 myStatusBar = "xmobar"
---dzen2 config
---myLogHook h = dynamicLogWithPP $ defaultPP
---            { ppCurrent = dzenColor "#222222" "white"
---            , ppLayout = dzenColor "lightblue" "#222222"
---            , ppTitle = dzenColor "green" "" . dzenEscape 
---            , ppOutput = hPutStrLn h
---            }
---myStatusBar = "dzen2 -fn '-*-dina-*-r-*-*-14-*-*-*-*-*-*-*' -bg '#222222' -fg '#777777' -h 16 -w 800''"
 
 main = do 
     din <- spawnPipe myStatusBar
@@ -43,10 +37,12 @@ main = do
         , workspaces = myWorkspaces
         , modMask = mod4Mask
         } `additionalKeys`
-        [ ((mod4Mask, xK_Print), spawn "sleep 1; scrot -s")
-        , ((0, xK_Print), spawn "'scrot' -e 'mv $f ~/pictures/screenshots'")
-        , ((mod4Mask, xK_g), spawn "google-chrome")
-        , ((mod4Mask, xK_F11), spawn "sudo /sbin/reboot")
-        , ((mod4Mask, xK_F12), spawn "sudo /sbin/shutdown -h now")
-        , ((mod4Mask, xK_p), spawn "dmenu_run -nb black -nf white")
+        [ ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'")
+        , ((mod4Mask, xK_g),    spawn "google-chrome")
+        , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot")
+        , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now")
+        , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white")
+        , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+")
+        , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-")
+        , ((mod4Mask, xK_M),    spawn "amixer -q set Master toggle")
         ]
