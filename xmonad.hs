@@ -23,9 +23,12 @@ myLayoutHook = avoidStruts (Mirror tall ||| tall ||| Full)
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" ""
             , ppOutput = hPutStrLn h
-            , ppTitle = xmobarColor "green" "" . shorten 50
+            , ppTitle = xmobarColor "green" ""-- . shorten 50
             }
 myStatusBar = "xmobar"
+myStartupHook :: X ()
+myStartupHook = do
+            spawn "xmobar ~/.xmobarrc2"
 
 main = do 
     din <- spawnPipe myStatusBar
@@ -33,6 +36,7 @@ main = do
         { manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook = myLayoutHook 
         , logHook = myLogHook din
+        , startupHook = myStartupHook
         , terminal = myTerminal
         , workspaces = myWorkspaces
         , modMask = mod4Mask
