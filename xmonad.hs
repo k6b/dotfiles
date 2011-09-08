@@ -48,5 +48,5 @@ main = do
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white")
         , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+")
         , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-")
-        , ((mod4Mask, xK_M),    spawn "amixer -q set Master toggle")
+        , ((mod4Mask .|. shiftMask, xK_m),    spawn "amixer -q set Master toggle")
         ]
