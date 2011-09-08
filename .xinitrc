@@ -21,7 +21,7 @@ runonce nm-applet &
 runonce urxvtd &
 
 
-default_session=awesome
+default_session=xmonad
 
 case $1 in
 
@@ -36,7 +36,7 @@ scrotwm)
     ;;
 xmonad)
     # Start WM
-    trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --tint 0x191970 -- height 12 &
+    #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --tint 0x191970 -- height 12 &
     xsetroot -cursor_name left_ptr
     feh --bg-scale /usr/share/archlinux/wallpaper/archlinux-simplyblack-43.png
     exec ck-launch-session xmonad

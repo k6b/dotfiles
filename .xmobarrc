@@ -3,10 +3,11 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
        , fgColor = "grey"
        , position = TopW L 96
        , commands = [ Run Date "%a %b %_d %l:%M" "date" 10
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red","-p","3"] 10
+                    , Run Com "/home/k6b/scripts/wireless.sh" [] "wireless" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% <fc=#ee9a00>%date%</fc> "
+       , template = "%StdinReader% }{ %wireless% %cpu% <fc=#ee9a00>%date%</fc> "
        }

@@ -6,9 +6,9 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Network "wlan0" ["-L","0","-H","32","--normal","#56c2d6","--high","#56c2d6"] 10
-                    , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 900
-                    , Run Com "uptime | awk '{print $1,$8,$9,$10}'" [] "uptime" 10
                     , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
+                    , Run Com "uptime | awk '{print $1,$8,$9,$10}'" [] "uptime" 10
                     , Run Com "/home/k6b/scripts/volume.sh" [] "vol" 10
                     ]
        , sepChar = "%"
