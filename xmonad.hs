@@ -12,6 +12,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Keepassx"       --> doFloat
     , className =? "Google-chrome"  --> doShift "Panic!"
+    , className =? "feh"            --> doFloat
     ]
 myLayoutHook = avoidStruts (Mirror tall ||| tall ||| Full)
     where
@@ -29,6 +30,7 @@ myStatusBar = "xmobar"
 myStartupHook :: X ()
 myStartupHook = do
             spawn "xmobar ~/.xmobarrc2"
+            spawn "~/scripts/startup.sh"
 
 main = do 
     din <- spawnPipe myStatusBar
@@ -48,5 +50,6 @@ main = do
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white")
         , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+")
         , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-")
-        , ((mod4Mask .|. shiftMask, xK_m),    spawn "amixer -q set Master toggle")
+        , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle")
+        , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png")
         ]
