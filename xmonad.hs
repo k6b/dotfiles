@@ -1,8 +1,15 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Layout.IM
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Reflect
+import XMonad.Layout.Grid
+import XMonad.Prompt
+import XMonad.Prompt.Man
 import System.IO
 
 myTerminal = "urxvtc"
@@ -10,11 +17,12 @@ myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"]
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , className =? "Keepassx"       --> doFloat
+    , className =? "Gimp"           --> doShift ".42."
+    , className =? "Keepassx"       --> doCenterFloat
     , className =? "Google-chrome"  --> doShift "Panic!"
-    , className =? "feh"            --> doFloat
+    , className =? "feh"            --> doCenterFloat
     ]
-myLayoutHook = avoidStruts (Mirror tall ||| tall ||| Full)
+myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full)
     where
         tall = Tall nmaster delta ratio
         nmaster = 1
@@ -52,4 +60,5 @@ main = do
         , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-")
         , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle")
         , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png")
+        , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig)
         ]
