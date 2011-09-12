@@ -12,33 +12,33 @@ import XMonad.Prompt
 import XMonad.Prompt.Man
 import System.IO
 
-myTerminal = "urxvtc"
-myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"]
+myTerminal = "urxvtc" --my preferred terminal
+myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
-    , className =? "Gimp"           --> doFloat
-    , className =? "Gimp"           --> doShift ".42."
-    , className =? "Keepassx"       --> doCenterFloat
-    , className =? "Google-chrome"  --> doShift "Panic!"
-    , className =? "feh"            --> doCenterFloat
+    [ className =? "MPlayer"        --> doFloat --float mplayer
+    , className =? "Gimp"           --> doFloat --float gimp
+    , className =? "Gimp"           --> doShift ".42." --move gimp to window
+    , className =? "Keepassx"       --> doCenterFloat --float keepassx
+    , className =? "Google-chrome"  --> doShift "Panic!" --move chrome to window
+    , className =? "feh"            --> doCenterFloat --center and float feh
     ]
-myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full)
+myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full) --layout list
     where
-        tall = Tall nmaster delta ratio
+        tall = Tall nmaster delta ratio --define tall layout sizes
         nmaster = 1
         ratio = 1/2
         delta = 2/100
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
-            { ppHidden = xmobarColor "grey" ""
-            , ppOutput = hPutStrLn h
-            , ppTitle = xmobarColor "green" ""-- . shorten 50
+            { ppHidden = xmobarColor "grey" "" --tag color
+            , ppOutput = hPutStrLn h           --tag list and window title
+            , ppTitle = xmobarColor "green" "" --window title color
             }
-myStatusBar = "xmobar"
+myStatusBar = "xmobar" --define first xmobar
 myStartupHook :: X ()
 myStartupHook = do
-            spawn "xmobar ~/.xmobarrc2"
-            spawn "~/scripts/startup.sh"
+            spawn "xmobar ~/.xmobarrc2" --start second xmobar
+            spawn "~/scripts/startup.sh" --startup script
 
 main = do 
     din <- spawnPipe myStatusBar
@@ -51,14 +51,15 @@ main = do
         , workspaces = myWorkspaces
         , modMask = mod4Mask
         } `additionalKeys`
-        [ ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'")
-        , ((mod4Mask, xK_g),    spawn "google-chrome")
-        , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot")
-        , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now")
-        , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white")
-        , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+")
-        , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-")
-        , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle")
-        , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png")
-        , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig)
+        [ ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
+        , ((mod4Mask, xK_g),    spawn "google-chrome") --start chrome
+        , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot") --reboot
+        , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now") --shutdown
+        , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white") --call dmenu
+        , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+") --raise sound
+        , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-") --lower sound
+        , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle") --mute sound
+        , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png") --keymask dialog
+        , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig) --man prompt
+        , ((mod4Mask, xK_f),    spawn "firefox") --start firefox
         ]
