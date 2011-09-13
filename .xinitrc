@@ -16,7 +16,7 @@ xrdb ~/.Xresources
 
 # Autostart Programs
 runonce xcompmgr &
-runonce nm-applet &
+nm-applet &
 #dropboxd &
 runonce urxvtd &
 
