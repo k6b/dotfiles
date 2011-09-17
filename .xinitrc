@@ -12,34 +12,13 @@ if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
 fi
 
 # Load terminal settings
-xrdb ~/.Xresources
+#xrdb ~/.Xresources
 
 # Autostart Programs
 runonce xcompmgr &
-nm-applet &
+#nm-applet &
 #dropboxd &
 runonce urxvtd &
 
-
-default_session=xmonad
-
-case $1 in
-
-awesome)
-
-    # Start WM
-    exec ck-launch-session awesome
-    ;;
-scrotwm)
-    # Start WM
-    exec ck-launch-session scrotwm
-    ;;
-xmonad)
-    # Start WM
-    #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --tint 0x191970 -- height 12 &
-    exec ck-launch-session xmonad
-    ;;
-*)
-    exec $default_session
-    ;;
-esac
+# Start window manager
+exec ck-launch-session xmonad

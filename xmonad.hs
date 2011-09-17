@@ -12,7 +12,7 @@ import XMonad.Prompt
 import XMonad.Prompt.Man
 import System.IO
 
-myTerminal = "urxvtc" --my preferred terminal
+myTerminal = "urxvt" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat --float mplayer
