@@ -16,9 +16,9 @@ fi
 
 # Autostart Programs
 runonce xcompmgr &
-#nm-applet &
 #dropboxd &
 runonce urxvtd &
+wicd-gtk &
 
 # Start window manager
 exec ck-launch-session xmonad
