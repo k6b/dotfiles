@@ -13,5 +13,5 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %KAUS% | %wlan0% | %temp%}{ %reddit% | %memory% * %swap% | %vol% "
+       , template = " %KAUS% | %wlan0% | %temp% }{ %reddit% | %memory% * %swap% | %vol% "
        }
