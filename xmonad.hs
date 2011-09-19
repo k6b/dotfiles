@@ -12,14 +12,14 @@ import XMonad.Prompt
 import XMonad.Prompt.Man
 import System.IO
 
-myTerminal = "urxvt" --my preferred terminal
+myTerminal = "urxvtc" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat --float mplayer
     , className =? "Gimp"           --> doFloat --float gimp
     , className =? "Gimp"           --> doShift ".42." --move gimp to window
     , className =? "Keepassx"       --> doCenterFloat --float keepassx
-    , className =? "Google-chrome"  --> doShift "Panic!" --move chrome to window
+    , className =? "Firefox"        --> doShift "Panic!" --move firefox to window
     , className =? "feh"            --> doCenterFloat --center and float feh
     ]
 myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full) --layout list
@@ -51,15 +51,14 @@ main = do
         , workspaces = myWorkspaces
         , modMask = mod4Mask
         } `additionalKeys`
-        [ ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
-        , ((mod4Mask, xK_g),    spawn "google-chrome") --start chrome
+        [ ((mod4Mask, xK_f),    spawn "firefox") --start firefox
         , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot") --reboot
         , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now") --shutdown
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white") --call dmenu
-        , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+") --raise sound
-        , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-") --lower sound
-        , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle") --mute sound
         , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png") --keymask dialog
         , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig) --man prompt
-        , ((mod4Mask, xK_f),    spawn "firefox") --start firefox
+        , ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
+        , ((0, 0x1008ff13),     spawn "amixer -q set Master 2dB+") --raise sound
+        , ((0, 0x1008ff11),     spawn "amixer -q set Master 1dB-") --lower sound
+        , ((0, 0x1008ff12),     spawn "amixer -q set Master toggle") --mute sound
         ]
