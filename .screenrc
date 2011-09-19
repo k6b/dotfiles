@@ -92,3 +92,6 @@ bind I login on
 bind O login off
 bind } history
 
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
+caption always "%3n %t%? @%u%?%? [%h]%?"
