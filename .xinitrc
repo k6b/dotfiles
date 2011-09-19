@@ -12,13 +12,13 @@ if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
 fi
 
 # Load terminal settings
-#xrdb ~/.Xresources
+xrdb ~/.Xresources
 
 # Autostart Programs
 runonce xcompmgr &
 #dropboxd &
-runonce urxvtd &
-wicd-gtk &
+urxvtd &
+xcompmgr &
 
 # Start window manager
 exec ck-launch-session xmonad
