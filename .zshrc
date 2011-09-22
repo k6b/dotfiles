@@ -15,7 +15,7 @@ compinit
 
 export PATH=$PATH:/home/k6b/scripts
 
-alsi
+#alsi
 
 #Autocomplete
 zstyle ':completion:*' menu select
@@ -32,13 +32,9 @@ RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
 autoload -Uz promptinit
 promptinit
 
-alias rscreen='screen -r'
-
 #ssh
-alias sshsamy='ssh k6b@192.168.1.3'
 alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
 alias sftpweb='sftp -P 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias ec2k6b='ssh k6b@git.kyleberry.org'
 alias chunkssh='ssh k6b@69.172.212.23'
 
 #alias ls='ls -a --color=auto'
@@ -52,12 +48,11 @@ alias ....="../../.."
 alias .....="../../../.."
 
 # pacman
-alias pacman='sudo pacman-color'
+alias pacman='sudo pacman'
 alias update='pacman -Syyu'
 alias remove='pacman -Rsc'
 alias install='pacman -S'
 alias search='pacman -Ss'
-alias icanhaz='pacman -S'
 
 # ls
 alias ls='ls -hF --color=always'

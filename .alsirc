@@ -3,7 +3,7 @@
 
 __CONFIG__
 # Text color for values
-$text_color        = 1;
+$text_color        = 0;
 
 # Color for RAM and HDD usage percents
 $usage_colors      = 0;
@@ -45,14 +45,14 @@ __OUTPUT__
 # Hostname
 &print("${c2}Hostname:$z $hostname\n");
 
+# Uptime
+&print("${c2}Uptime:$z $uptime\n");
+
 # Kernel
 &print("${c2}Kernel:$z $kernel\n");
 
 # Shell
 &print("${c2}Shell:$z $SH\n");
-
-# Uptime
-&print("${c2}Uptime:$z $uptime\n");
 
 # Packages
 &print("${c2}Packages:$z $pkgs");
