@@ -51,6 +51,7 @@ alias mkdir='mkdir -p -v'
 alias nano='nano -w'
 alias ping='ping -c 5'
 alias ..='cd ..'
+alias ,,='..'
 alias ....="../../.."
 alias .....="../../../.."
 
