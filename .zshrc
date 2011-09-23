@@ -33,6 +33,10 @@ promptinit
 
 alias rscreen='screen -r'
 
+alias mnttor='sshfs k6b@107.20.208.25:/home/k6b/torrents ~/torrents && sshfs k6b@107.20.208.25:/home/k6b/downloads ~/torrentdownload'
+alias umnttor='sudo fusermount -u ~/torrents && sudo fusermount -u ~/torrentdownload'
+
+
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
 alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
