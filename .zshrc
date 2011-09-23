@@ -92,4 +92,3 @@ bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char
 bindkey '^[[2~' overwrite-mode
 #################################################
-
