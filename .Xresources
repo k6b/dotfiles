@@ -22,6 +22,6 @@ URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=14:antialias=true:hinting=tr
 URxvt.perl-ext-common: default,tabbed,matcher,clipboard,url-select
 !clickable url
 URxvt.keysym.M-m:       perl:url-select:select_next
-URxvt.urlLauncher:      /usr/bin/google-chrome
+URxvt.urlLauncher:      /usr/bin/firefox
 URxvt.matcher.button:   1
 URxvt.underlineURLs:    true
