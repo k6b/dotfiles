@@ -13,7 +13,22 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+#Define XDG Dirs
+
+XDG_DESKTOP_DIR="$HOME/.desktop"
+XDG_DOWNLOAD_DIR="$HOME/downloads"
+XDG_TEMPLATES_DIR="$HOME/templates"
+XDG_PUBLICSHARE_DIR="$HOME/public"
+XDG_DOCUMENTS_DIR="$HOME/documents"
+XDG_MUSIC_DIR="$HOME/music"
+XDG_PICTURES_DIR="$HOME/pictures"
+XDG_VIDEOS_DIR="$HOME/videos"
+
+#Add my scripts to $PATH
+
 export PATH=$PATH:/home/k6b/scripts
+
+# 
 
 alsi
 
@@ -32,10 +47,6 @@ autoload -Uz promptinit
 promptinit
 
 alias rscreen='screen -r'
-
-alias mnttor='sshfs k6b@107.20.208.25:/home/k6b/torrents ~/torrents && sshfs k6b@107.20.208.25:/home/k6b/downloads ~/torrentdownload'
-alias umnttor='sudo fusermount -u ~/torrents && sudo fusermount -u ~/torrentdownload'
-
 
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
