@@ -15,8 +15,7 @@ fi
 xrdb ~/.Xresources
 
 # Autostart Programs
-runonce xcompmgr &
-#dropboxd &
+xcompmgr &
 urxvtd &
 xcompmgr &
 
