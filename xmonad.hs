@@ -58,7 +58,9 @@ main = do
         , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png") --keymask dialog
         , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig) --man prompt
         , ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
+        ---Media Keys
         , ((0, 0x1008ff13),     spawn "amixer -q set Master 2dB+") --raise sound
         , ((0, 0x1008ff11),     spawn "amixer -q set Master 1dB-") --lower sound
         , ((0, 0x1008ff12),     spawn "amixer -q set Master toggle") --mute sound
+        , ((0, 0x1008ff2c),     spawn "eject") --eject cd
         ]
