@@ -15,19 +15,32 @@ import System.IO
 myTerminal = "urxvtc" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat --float mplayer
-    , className =? "Gimp"           --> doFloat --float gimp
+    [ className =? "vlc"        --> doFloat --float mplayer
     , className =? "Gimp"           --> doShift ".42." --move gimp to window
     , className =? "Keepassx"       --> doCenterFloat --float keepassx
     , className =? "Firefox"        --> doShift "Panic!" --move firefox to window
     , className =? "feh"            --> doCenterFloat --center and float feh
     ]
-myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full) --layout list
+myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
     where
-        tall = Tall nmaster delta ratio --define tall layout sizes
-        nmaster = 1
-        ratio = 1/2
-        delta = 2/100
+        standardLayout = avoidStruts ( Mirror tall ||| tall ||| Grid ||| Full ) --layout to use on every other workspace
+            where
+                tall = Tall nmaster delta ratio --define tall layout sizes
+                nmaster = 1 --number of windows in master pane
+                ratio = 1/2 --ratio of master pane size
+                delta = 2/100
+
+        gimp =  avoidStruts $ --layout for gimp
+                withIM (0.11) (Role "gimp-toolbox") $ --toolbox on side
+                reflectHoriz $
+                withIM (0.15) (Role "gimp-dock") Full --dock on side
+        terminalLayout = avoidStruts $ Grid --layout for terminal windows
+        webLayout = avoidStruts $ Mirror tall --layout for browser and terminal window
+            where
+                tall = Tall nmaster delta ratio --define tall layout sizes 
+                nmaster = 1 --number of windows in master pane1
+                ratio = 3/4 --ratio of master pane size 
+                delta = 2/100
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" "" --tag color
