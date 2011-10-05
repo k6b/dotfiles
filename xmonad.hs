@@ -19,6 +19,16 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doShift ".42." --move gimp to window
     , className =? "Keepassx"       --> doCenterFloat --float keepassx
     , className =? "Firefox"        --> doShift "Panic!" --move firefox to window
+    --Float firefox windows
+    , title     =? "Firefox Preferences" --> doCenterFloat
+    , title     =? "Session Manager - Mozilla Firefox" --> doCenterFloat
+    , title     =? "Firefox Add-on Updates" --> doCenterFloat
+    , title     =? "Add-ons" --> doCenterFloat
+    , title     =? "Clear Private Data" --> doCenterFloat
+    , title     =? "Close Firefox" --> doCenterFloat
+    , title     =? "Downloads" --> doCenterFloat
+    , title     =? "About Mozilla Firefox" --> doCenterFloat
+    , title     =? "Options for Menu Editor" --> doCenterFloat
     , className =? "feh"            --> doCenterFloat --center and float feh
     ]
 myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
@@ -48,18 +58,14 @@ myLogHook h = dynamicLogWithPP xmobarPP
             , ppTitle = xmobarColor "green" "" --window title color
             }
 myStatusBar = "xmobar" --define first xmobar
-myStartupHook :: X ()
-myStartupHook = do
-            spawn "xmobar ~/.xmobarrc2" --start second xmobar
-            spawn "~/scripts/startup.sh" --startup script
-
 main = do 
-    din <- spawnPipe myStatusBar
+    spawn "~/scripts/startup.sh" --startup script
+    din <- spawnPipe myStatusBar --start first xmobar
+    spawn "xmobar ~/.xmobarrc2"  --start second xmobar 
     xmonad $ defaultConfig
         { manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook = myLayoutHook 
         , logHook = myLogHook din
-        , startupHook = myStartupHook
         , terminal = myTerminal
         , workspaces = myWorkspaces
         , modMask = mod4Mask
