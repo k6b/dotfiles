@@ -7,8 +7,6 @@ set mouse=a
 
 set formatoptions=c,q,r,t
 
-set textwidth=85
-
 set autoindent
 
 set ignorecase
