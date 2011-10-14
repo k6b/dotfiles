@@ -15,21 +15,21 @@ import System.IO
 myTerminal = "urxvtc" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
-    [ className =? "vlc"        --> doFloat --float mplayer
-    , className =? "Gimp"           --> doShift ".42." --move gimp to window
-    , className =? "Keepassx"       --> doCenterFloat --float keepassx
-    , className =? "Firefox"        --> doShift "Panic!" --move firefox to window
+    [ className =? "vlc"                                --> doFloat --float vlc
+    , className =? "Gimp"                               --> doShift ".42." --move gimp to window
+    , className =? "Keepassx"                           --> doCenterFloat --float keepassx
+    , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
     --Float firefox windows
-    , title     =? "Firefox Preferences" --> doCenterFloat
-    , title     =? "Session Manager - Mozilla Firefox" --> doCenterFloat
-    , title     =? "Firefox Add-on Updates" --> doCenterFloat
-    , title     =? "Add-ons" --> doCenterFloat
-    , title     =? "Clear Private Data" --> doCenterFloat
-    , title     =? "Close Firefox" --> doCenterFloat
-    , title     =? "Downloads" --> doCenterFloat
-    , title     =? "About Mozilla Firefox" --> doCenterFloat
-    , title     =? "Options for Menu Editor" --> doCenterFloat
-    , className =? "feh"            --> doCenterFloat --center and float feh
+    , title     =? "Firefox Preferences"                --> doCenterFloat
+    , title     =? "Session Manager - Mozilla Firefox"  --> doCenterFloat
+    , title     =? "Firefox Add-on Updates"             --> doCenterFloat
+    , title     =? "Add-ons"                            --> doCenterFloat
+    , title     =? "Clear Private Data"                 --> doCenterFloat
+    , title     =? "Close Firefox"                      --> doCenterFloat
+    , title     =? "Downloads"                          --> doCenterFloat
+    , title     =? "About Mozilla Firefox"              --> doCenterFloat
+    , title     =? "Options for Menu Editor"            --> doCenterFloat
+    , className =? "feh"                                --> doCenterFloat --center and float feh
     ]
 myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
     where
@@ -39,7 +39,6 @@ myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ on
                 nmaster = 1 --number of windows in master pane
                 ratio = 1/2 --ratio of master pane size
                 delta = 2/100
-
         gimp =  avoidStruts $ --layout for gimp
                 withIM (0.11) (Role "gimp-toolbox") $ --toolbox on side
                 reflectHoriz $
