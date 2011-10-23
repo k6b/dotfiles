@@ -33,9 +33,7 @@ autoload -Uz promptinit
 promptinit
 
 #ssh
-alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias sftpweb='sftp -P 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias chunkssh='ssh k6b@69.172.212.23'
+alias sshkyleb='ssh kyleb@173.214.171.243 -i ./.ssh/id_rsa2'
 
 #alias ls='ls -a --color=auto'
 alias grep='grep --color=auto'
@@ -48,7 +46,7 @@ alias ....="../../.."
 alias .....="../../../.."
 
 # pacman
-alias pacman='sudo pacman'
+alias pacman='sudo pacman-color'
 alias update='pacman -Syyu'
 alias remove='pacman -Rsc'
 alias install='pacman -S'
