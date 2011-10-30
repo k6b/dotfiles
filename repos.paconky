@@ -1,6 +1,0 @@
-#SET MSG_0 up to date
-#SET MSG_1 1 new pkg
-#SET MSG_N %N% new pkgs
-#
-repo status ${alignr}%MSG%${voffset 5}
-%PKG_REPO%/%PKG_NAME% ${alignr}%PKG_VER%
