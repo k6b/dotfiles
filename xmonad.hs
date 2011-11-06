@@ -71,6 +71,7 @@ main = do
         , modMask = myModMask
         } `additionalKeys`
         [ ((mod4Mask, xK_f),    spawn "firefox") --start firefox
+        , ((mod4Mask .|. shiftMask, xK_F8),  spawn "sudo /usr/sbin/pm-suspend") --suspend
         , ((mod4Mask .|. shiftMask, xK_F9),  spawn "sudo /sbin/reboot") --reboot
         , ((mod4Mask .|. shiftMask, xK_F10),  spawn "sudo /sbin/shutdown -h now") --shutdown
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white") --call dmenu
