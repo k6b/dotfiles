@@ -34,6 +34,12 @@ export PATH=$PATH:/home/k6b/scripts
 
 alsi
 
+#Prompt
+
+#DONTSETRPROMPT=1
+#RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
+BATTERY=1
+
 #Autocomplete
 zstyle ':completion:*' menu select
 setopt completealiases
