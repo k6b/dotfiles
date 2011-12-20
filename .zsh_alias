@@ -6,14 +6,15 @@ alias less='vimpager'
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
 alias ec2k6b='ssh k6b@107.20.208.25'
-alias kfbnet='ssh kyleb@kylefberry.net'
+alias dns1='ssh kberry@server1.sigabrt.com -p 222'
+alias dns2='ssh kberry@server2.sigabrt.com -p 222'
+alias kssh='ssh k6b@91.121.29.227'
 
 #alias ls='ls -a --color=auto'
 alias grep='grep --color=auto'
 alias more='less'
 alias mkdir='mkdir -p -v'
 alias nano='nano -w'
-alias ping='ping -c 5'
 alias ..='cd ..'
 alias ,,='..'
 alias ....="../../.."
