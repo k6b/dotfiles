@@ -30,6 +30,7 @@ myManageHook = composeAll
     , title     =? "Downloads"                          --> doCenterFloat
     , title     =? "About Mozilla Firefox"              --> doCenterFloat
     , title     =? "Options for Menu Editor"            --> doCenterFloat
+    , title     =? "Full Server Headers"                --> doCenterFloat
     , className =? "feh"                                --> doCenterFloat --center and float feh
     ]
 myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
