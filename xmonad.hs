@@ -19,6 +19,7 @@ myManageHook = composeAll
     [ className =? "vlc"                                --> doFloat --float vlc
     , className =? "Gimp"                               --> doShift ".42." --move gimp to window
     , className =? "Keepassx"                           --> doCenterFloat --float keepassx
+    , className =? "Chromium"                           --> doShift "Panic!" --move chromium to window
     , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
     --Float firefox windows
     , title     =? "Firefox Preferences"                --> doCenterFloat
@@ -72,6 +73,7 @@ main = do
         , modMask = myModMask
         } `additionalKeys`
         [ ((mod4Mask, xK_f),    spawn "firefox") --start firefox
+        , ((mod4Mask, xK_c),    spawn "chromium") --start chromium
         , ((mod4Mask .|. shiftMask, xK_F8),  spawn "sudo /usr/sbin/pm-suspend") --suspend
         , ((mod4Mask .|. shiftMask, xK_F9),  spawn "sudo /sbin/reboot") --reboot
         , ((mod4Mask .|. shiftMask, xK_F10),  spawn "sudo /sbin/shutdown -h now") --shutdown
