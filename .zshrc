@@ -32,7 +32,7 @@ XDG_VIDEOS_DIR="$HOME/videos"
 
 export PATH=$PATH:/home/k6b/scripts
 
-#alsi
+alsi
 
 #Prompt
 
@@ -50,7 +50,7 @@ autoload -Uz promptinit
 promptinit
 
 ##Set some keybindings
-###############################################
+#################################################
 typeset -g -A key
 bindkey '^?' backward-delete-char
 bindkey '^[[7~' beginning-of-line
