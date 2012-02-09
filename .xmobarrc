@@ -2,7 +2,7 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
        , bgColor = "black"
        , fgColor = "grey"
        , position = TopW L 100 
-       , commands = [ Run Date "%a %b %_d %l:%M" "date" 10
+       , commands = [ Run Date "%a %b %_d %H:%M" "date" 10
                     , Run MultiCpu ["-L","3","-H","50","--normal","green","--high","red","-p","3","-t","Cpu: <total0> <total1>"] 10
                     , Run Battery ["-t","Batt: <left>","-L","50","-H","75","--high","green","--normal","yellow","--low","red"] 10
                     , Run Com "/home/k6b/scripts/wireless.sh" [] "wireless" 10
