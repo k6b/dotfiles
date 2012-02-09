@@ -2,15 +2,16 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
        , bgColor = "black"
        , fgColor = "grey"
        , position = BottomW L 100
-       , commands = [ Run Weather "KAUS" ["-t","<tempF>° <rh>%","-L","64","-H","77","--normal","green","--high","red","--low","blue"] 36000
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+       , commands = [ Run Weather "KAUS" ["-t","<tempF> <rh>%","-L","64","-H","77","--normal","green","--high","red","--low","blue"] 36000 
+		    , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Network "wlan0" ["-L","0","-H","32","--normal","#56c2d6","--high","#56c2d6"] 10
-                    , Run Date "%a %b %_d %l:%M" "date" 10
-                    , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
+                    , Run Network "eth0" ["-L","0","-H","32","--normal","#56c2d6","--high","#56c2d6"] 10
+                    , Run DiskU [("sda2", "/: <usedp>%"), ("sda1", "/boot: <usedp>%"), ("sda4", "/home: <usedp>%"), ("sda3", "/var: <usedp>%")] []  60
+                    , Run DiskIO [("/", "/: <total>"), ("/boot", "/boot: <total>"), ("/home", "/home: <total>"), ("/var", "/var: <total>")] [] 10
                     , Run Com "/home/k6b/scripts/volume.sh" [] "vol" 10
+                    , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %KAUS% | %wlan0% }{ %reddit% | %memory% * %swap% | %vol% "
+       , template = " %KAUS% | %eth0% } %disku% | %diskio% { %reddit% | %memory% | %vol% "
        }

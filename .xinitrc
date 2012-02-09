@@ -15,31 +15,11 @@ fi
 xrdb ~/.Xresources
 
 # Autostart Programs
-runonce xcompmgr &
-nm-applet &
-#dropboxd &
-runonce urxvtd &
+xcompmgr &
+urxvtd &
 
+# Map screens
+xrandr --auto --output DVI-1 --right-of DVI-0
 
-default_session=xmonad
-
-case $1 in
-
-awesome)
-
-    # Start WM
-    exec ck-launch-session awesome
-    ;;
-scrotwm)
-    # Start WM
-    exec ck-launch-session scrotwm
-    ;;
-xmonad)
-    # Start WM
-    #trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 3 --transparent true --tint 0x191970 -- height 12 &
-    exec ck-launch-session xmonad
-    ;;
-*)
-    exec $default_session
-    ;;
-esac
+# Start window manager
+exec ck-launch-session xmonad

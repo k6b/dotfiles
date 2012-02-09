@@ -13,9 +13,32 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+#Load alias'
+
+source ~/.zsh_alias
+
+#Define XDG Dirs
+
+XDG_DESKTOP_DIR="$HOME/.desktop"
+XDG_DOWNLOAD_DIR="$HOME/downloads"
+XDG_TEMPLATES_DIR="$HOME/templates"
+XDG_PUBLICSHARE_DIR="$HOME/public"
+XDG_DOCUMENTS_DIR="$HOME/documents"
+XDG_MUSIC_DIR="$HOME/music"
+XDG_PICTURES_DIR="$HOME/pictures"
+XDG_VIDEOS_DIR="$HOME/videos"
+
+#Add my scripts to $PATH
+
 export PATH=$PATH:/home/k6b/scripts
 
-alsi
+#alsi
+
+#Prompt
+
+#DONTSETRPROMPT=1
+#RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
+#BATTERY=1
 
 #Autocomplete
 zstyle ':completion:*' menu select
@@ -23,64 +46,8 @@ setopt completealiases
 
 autoload -U colors && colors
 
-#Prompt
-#PROMPT="%{$fg[green]%}[%n@%m]%{$fg[blue]%} %B%d/%b %{$fg[green]%}%#%{$reset_color%} "
-DONTSETRPROMPT=1
-RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
-
-
 autoload -Uz promptinit
 promptinit
-
-alias rscreen='screen -r'
-
-#ssh
-alias sshsamy='ssh k6b@192.168.1.3'
-alias sshweb='ssh -p 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias sftpweb='sftp -P 2222 -o PubkeyAuthentication=no k6b@184.173.236.53'
-alias ec2k6b='ssh k6b@git.kyleberry.org'
-alias chunkssh='ssh k6b@69.172.212.23'
-
-#alias ls='ls -a --color=auto'
-alias grep='grep --color=auto'
-alias more='less'
-alias mkdir='mkdir -p -v'
-alias nano='nano -w'
-alias ping='ping -c 5'
-alias ..='cd ..'
-alias ....="../../.."
-alias .....="../../../.."
-
-# pacman
-alias pacman='sudo pacman-color'
-alias update='pacman -Syyu'
-alias remove='pacman -Rsc'
-alias install='pacman -S'
-alias search='pacman -Ss'
-alias icanhaz='pacman -S'
-
-# ls
-alias ls='ls -hF --color=always'
-alias lr='ls -R'                    # recursive ls
-alias ll='ls -l'
-alias la='ls -a'
-alias lA='ll -A'
-alias lx='ll -BX'                   # sort by extension
-alias lz='ll -rS'                   # sort by size
-alias lt='ll -rt'                   # sort by date
-alias lm='la | more'
-alias lla='ll -a'
-
-# safety features
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -I'                    # 'rm -i' prompts for every file
-alias ln='ln -i'
-
-#Folders
-alias logs='cd /var/log'
-
-alias fuck='curl -s rage.thewaffleshop.net'
 
 ##Set some keybindings
 ###############################################
@@ -97,4 +64,3 @@ bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char
 bindkey '^[[2~' overwrite-mode
 #################################################
-

@@ -12,22 +12,56 @@ import XMonad.Prompt
 import XMonad.Prompt.Man
 import System.IO
 
+myModMask = mod4Mask 
 myTerminal = "urxvtc" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat --float mplayer
-    , className =? "Gimp"           --> doFloat --float gimp
-    , className =? "Gimp"           --> doShift ".42." --move gimp to window
-    , className =? "Keepassx"       --> doCenterFloat --float keepassx
-    , className =? "Google-chrome"  --> doShift "Panic!" --move chrome to window
-    , className =? "feh"            --> doCenterFloat --center and float feh
+    [ className =? "vlc"                                --> doFloat --float vlc
+    , className =? "Gimp"                               --> doShift ".42." --move gimp to window
+    , className =? "Keepassx"                           --> doCenterFloat --float keepassx
+    , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
+    , className =? "Pidgin"				--> doShift ".42." --move Pidgin to window
+    --Float firefox windows
+    , title     =? "Firefox Preferences"                --> doCenterFloat
+    , title     =? "Session Manager - Mozilla Firefox"  --> doCenterFloat
+    , title     =? "Firefox Add-on Updates"             --> doCenterFloat
+    , title     =? "Add-ons"                            --> doCenterFloat
+    , title     =? "Clear Private Data"                 --> doCenterFloat
+    , title     =? "Close Firefox"                      --> doCenterFloat
+    , title     =? "Downloads"                          --> doCenterFloat
+    , title     =? "About Mozilla Firefox"              --> doCenterFloat
+    , title     =? "Options for Menu Editor"            --> doCenterFloat
+    , title     =? "Full Server Headers"                --> doCenterFloat
+    --Float pidgin windows
+    , className =? "feh"                                --> doCenterFloat --center and float feh
     ]
-myLayoutHook = avoidStruts (Mirror tall ||| Grid ||| tall ||| Full) --layout list
+
+myLayoutHook = onWorkspace ".42." imLayout $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
     where
-        tall = Tall nmaster delta ratio --define tall layout sizes
-        nmaster = 1
-        ratio = 1/2
-        delta = 2/100
+        standardLayout = avoidStruts ( Mirror tall ||| tall ||| Grid ||| Full ) --layout to use on every other workspace
+            where
+                tall = Tall nmaster delta ratio --define tall layout sizes
+                nmaster = 1 --number of windows in master pane
+                ratio = 1/2 --ratio of master pane size
+                delta = 2/100
+
+        imLayout = avoidStruts $ reflectHoriz $ withIM ratio rosters chatLayout where --layout for gimp
+		chatLayout	= Grid
+		ratio		= 1/6
+		rosters		= pidginRoster
+		pidginRoster	= And (ClassName "Pidgin") (Role "buddy_list")
+
+        terminalLayout = avoidStruts $ Grid --layout for terminal windows
+
+        webLayout = avoidStruts $ Mirror tall --layout for browser and terminal window
+            where
+                tall = Tall nmaster delta ratio --define tall layout sizes 
+                nmaster = 1 --number of windows in master pane1
+                ratio = 3/4 --ratio of master pane size 
+                delta = 2/100
+
+
+
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" "" --tag color
@@ -35,31 +69,28 @@ myLogHook h = dynamicLogWithPP xmobarPP
             , ppTitle = xmobarColor "green" "" --window title color
             }
 myStatusBar = "xmobar" --define first xmobar
-myStartupHook :: X ()
-myStartupHook = do
-            spawn "xmobar ~/.xmobarrc2" --start second xmobar
-            spawn "~/scripts/startup.sh" --startup script
-
 main = do 
-    din <- spawnPipe myStatusBar
+    spawn "~/scripts/startup.sh" --startup script
+    din <- spawnPipe myStatusBar --start first xmobar
+    spawn "xmobar ~/.xmobarrc2"  --start second xmobar 
     xmonad $ defaultConfig
         { manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
         , layoutHook = myLayoutHook 
         , logHook = myLogHook din
-        , startupHook = myStartupHook
         , terminal = myTerminal
         , workspaces = myWorkspaces
-        , modMask = mod4Mask
+        , modMask = myModMask
         } `additionalKeys`
-        [ ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
-        , ((mod4Mask, xK_g),    spawn "google-chrome") --start chrome
-        , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot") --reboot
-        , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now") --shutdown
+        [ ((mod4Mask, xK_f),    spawn "firefox") --start firefox
+        , ((mod4Mask .|. shiftMask, xK_F8),  spawn "sudo /usr/sbin/pm-suspend") --suspend
+        , ((mod4Mask .|. shiftMask, xK_F9),  spawn "sudo /sbin/reboot") --reboot
+        , ((mod4Mask .|. shiftMask, xK_F10),  spawn "sudo /sbin/shutdown -h now") --shutdown
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white") --call dmenu
-        , ((mod4Mask, xK_Up),   spawn "amixer -q set Master 2dB+") --raise sound
-        , ((mod4Mask, xK_Down), spawn "amixer -q set Master 1dB-") --lower sound
-        , ((mod4Mask .|. shiftMask, xK_m), spawn "amixer -q set Master toggle") --mute sound
         , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png") --keymask dialog
         , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig) --man prompt
-        , ((mod4Mask, xK_f),    spawn "firefox") --start firefox
+        , ((mod4Mask .|. shiftMask, xK_p),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
+        , ((mod4Mask, xK_Up),    spawn "amixer -q set Master 2dB+") --raise sound
+        , ((mod4Mask, xK_Down),     spawn "amixer -q set Master 1dB-") --lower sound
+        , ((mod4Mask .|. shiftMask, xK_m),     spawn "amixer -q set Master toggle") --mute sound
+	, ((mod4Mask .|. shiftMask, xK_l),	spawn "xscreensaver-command -lock") --lock desktop
         ]
