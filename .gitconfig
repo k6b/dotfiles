@@ -1,0 +1,7 @@
+[core]
+	editor = vim
+[user]
+	name = Kyle Berry
+	email = 4wd22r@gmail.com
+[core]
+	ui = true

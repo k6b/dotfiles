@@ -1,0 +1,55 @@
+alias rscreen='screen -r'
+alias d='dig'
+alias p='ping'
+alias wh='whois'
+alias less='vimpager'
+alias alsi='alsi -a'
+
+#ssh
+alias sshsamy='ssh k6b@192.168.1.3'
+alias ec2k6b='ssh k6b@107.20.208.25 -p 7331'
+alias crap1='ssh k6b@208.115.198.34 -p 1337'
+alias crap2='ssh k6b@208.115.198.37 -p 1337'
+alias dns1='ssh kberry@server1.sigabrt.com -p 222'
+alias dns2='ssh kberry@server2.sigabrt.com -p 222'
+alias kssh='ssh k6b@91.121.29.227'
+alias sdf='ssh k6b@sdf.org'
+alias ns1='ssh k6b@ns1'
+alias ns2='ssh k6b@ns2'
+
+alias grep='grep --color=auto'
+alias more='less'
+alias mkdir='mkdir -p -v'
+alias nano='nano -w'
+alias ..='cd ..'
+alias ,,='..'
+alias ....="../../.."
+alias .....="../../../.."
+
+# pacman
+alias pacman='sudo pacman'
+alias update='pacman -Syyu'
+alias remove='pacman -Rsc'
+alias install='pacman -S'
+alias search='pacman -Ss'
+alias icanhaz='pacman -S'
+
+# ls
+alias ls='ls -hF --color=always'
+alias lr='ls -R'                # recursive ls
+alias ll='ls -l'
+alias la='ls -a'
+alias lA='ll -A'
+alias lx='ll -BX'               # sort by extension
+alias lz='ll -rS'               # sort by size
+alias lt='ll -rt'               # sort by date
+alias lm='la | more'
+alias lla='ll -a'
+
+# safety features
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -I'                # 'rm -i' prompts for every file
+alias ln='ln -i'
+
+alias fuck='curl -s rage.thewaffleshop.net'
