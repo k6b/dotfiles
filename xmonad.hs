@@ -20,7 +20,7 @@ myManageHook = composeAll
     , className =? "Gimp"                               --> doShift ".42." --move gimp to window
     , className =? "Keepassx"                           --> doCenterFloat --float keepassx
     , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
-    , className =? "Pidgin"				--> doShift ".42." --move Pidgin to window
+    , className =? "Pidgin"	                  			--> doShift ".42." --move Pidgin to window
     --Float firefox windows
     , title     =? "Firefox Preferences"                --> doCenterFloat
     , title     =? "Session Manager - Mozilla Firefox"  --> doCenterFloat
@@ -60,15 +60,15 @@ myLayoutHook = onWorkspace ".42." imLayout $ onWorkspace "Don't" terminalLayout 
                 ratio = 3/4 --ratio of master pane size 
                 delta = 2/100
 
-
-
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" "" --tag color
             , ppOutput = hPutStrLn h           --tag list and window title
             , ppTitle = xmobarColor "green" "" --window title color
             }
+
 myStatusBar = "xmobar" --define first xmobar
+
 main = do 
     spawn "~/scripts/startup.sh" --startup script
     din <- spawnPipe myStatusBar --start first xmobar
@@ -92,5 +92,5 @@ main = do
         , ((mod4Mask, xK_Up),    spawn "amixer -q set Master 2dB+") --raise sound
         , ((mod4Mask, xK_Down),     spawn "amixer -q set Master 1dB-") --lower sound
         , ((mod4Mask .|. shiftMask, xK_m),     spawn "amixer -q set Master toggle") --mute sound
-	, ((mod4Mask .|. shiftMask, xK_l),	spawn "xscreensaver-command -lock") --lock desktop
+    	, ((mod4Mask .|. shiftMask, xK_l),	spawn "xscreensaver-command -lock") --lock desktop
         ]
