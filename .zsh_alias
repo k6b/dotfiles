@@ -2,8 +2,6 @@ alias rscreen='screen -r'
 alias d='dig'
 alias p='ping'
 alias wh='whois'
-alias less='vimpager'
-alias alsi='alsi -a'
 
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
