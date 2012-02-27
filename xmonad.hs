@@ -22,6 +22,7 @@ myManageHook = composeAll
     , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
     , className =? "Pidgin"	                  			--> doShift ".42." --move Pidgin to window
     --Float firefox windows
+    , title	=? "autologin"				--> doShift "Don't"
     , title     =? "Firefox Preferences"                --> doCenterFloat
     , title     =? "Session Manager - Mozilla Firefox"  --> doCenterFloat
     , title     =? "Firefox Add-on Updates"             --> doCenterFloat
