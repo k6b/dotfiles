@@ -22,9 +22,3 @@ set showmatch
 set number
 
 set showcmd
-
-set shiftwidth=4
-set tabstop=4
-
-set expandtab
-set smarttab
