@@ -7,7 +7,6 @@ alias alsi='alsi -a'
 
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
-alias ec2k6b='ssh k6b@107.20.208.25 -p 7331'
 alias crap1='ssh k6b@208.115.198.34 -p 1337'
 alias crap2='ssh k6b@208.115.198.37 -p 1337'
 alias dns1='ssh kberry@server1.sigabrt.com -p 222'
@@ -15,6 +14,7 @@ alias dns2='ssh kberry@server2.sigabrt.com -p 222'
 alias kssh='ssh k6b@91.121.29.227'
 alias sdf='ssh k6b@sdf.org'
 alias sandbox='ssh k6b@50.56.203.227'
+alias relay='ssh k6b@108.166.65.37'
 
 alias grep='grep --color=auto'
 alias more='less'
