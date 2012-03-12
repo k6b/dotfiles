@@ -2,22 +2,28 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Run
+import XMonad.Util.EZConfig
+import XMonad.Util.NamedWindows(getName)
 import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
 import XMonad.Layout.Grid
 import XMonad.Prompt
 import XMonad.Prompt.Man
+import XMonad.Hooks.UrgencyHook
 import System.IO
+import qualified XMonad.StackSet as W
+--import qualified Data.Map        as M
 
+myModMask = mod4Mask 
 myTerminal = "urxvtc" --my preferred terminal
 myWorkspaces = ["Don't","Panic!","::k6b::",".42.","5","6","7","8","9"] --list of tag names
 myManageHook = composeAll
     [ className =? "vlc"                                --> doFloat --float vlc
     , className =? "Gimp"                               --> doShift ".42." --move gimp to window
     , className =? "Keepassx"                           --> doCenterFloat --float keepassx
+    , className =? "Chromium"                           --> doShift "Panic!" --move chromium to window
     , className =? "Firefox"                            --> doShift "Panic!" --move firefox to window
     --Float firefox windows
     , title     =? "Firefox Preferences"                --> doCenterFloat
@@ -29,6 +35,7 @@ myManageHook = composeAll
     , title     =? "Downloads"                          --> doCenterFloat
     , title     =? "About Mozilla Firefox"              --> doCenterFloat
     , title     =? "Options for Menu Editor"            --> doCenterFloat
+    , title     =? "Full Server Headers"                --> doCenterFloat
     , className =? "feh"                                --> doCenterFloat --center and float feh
     ]
 myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ onWorkspace "Panic!" webLayout $ standardLayout --per workspace layouts
@@ -50,6 +57,24 @@ myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ on
                 nmaster = 1 --number of windows in master pane1
                 ratio = 3/4 --ratio of master pane size 
                 delta = 2/100
+--libnotify config
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name <- getName w
+        ws <- gets windowset
+	whenJust (W.findTag w ws) (flash (show name))
+     where flash name index = spawn $ unwords
+             [ "notify-send"
+             , summary name
+             , body name index
+             ]
+           summary name = quote . unwords $ ["urgent:", name]
+           body name index = quote . unwords $ ["urgent alert from", name, "on workspace", index]
+
+quote :: String -> String
+quote = wrap "\"" "\""
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" "" --tag color
@@ -67,18 +92,20 @@ main = do
         , logHook = myLogHook din
         , terminal = myTerminal
         , workspaces = myWorkspaces
-        , modMask = mod4Mask
+        , modMask = myModMask
         } `additionalKeys`
         [ ((mod4Mask, xK_f),    spawn "firefox") --start firefox
-        , ((mod4Mask, xK_F11),  spawn "sudo /sbin/reboot") --reboot
-        , ((mod4Mask, xK_F12),  spawn "sudo /sbin/shutdown -h now") --shutdown
+        , ((mod4Mask, xK_c),    spawn "chromium") --start chromium
+        , ((mod4Mask .|. shiftMask, xK_F8),  spawn "sudo /usr/sbin/pm-suspend") --suspend
+        , ((mod4Mask .|. shiftMask, xK_F9),  spawn "sudo /sbin/reboot") --reboot
+        , ((mod4Mask .|. shiftMask, xK_F10),  spawn "sudo /sbin/shutdown -h now") --shutdown
         , ((mod4Mask, xK_p),    spawn "dmenu_run -nb black -nf white") --call dmenu
         , ((mod4Mask .|. shiftMask, xK_h), spawn "feh --scale ~/pictures/Xmbindings.png") --keymask dialog
         , ((mod4Mask, xK_F1),   manPrompt defaultXPConfig) --man prompt
-        , ((0, xK_Print),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
-        ---Media Keys
-        , ((0, 0x1008ff13),     spawn "amixer -q set Master 2dB+") --raise sound
-        , ((0, 0x1008ff11),     spawn "amixer -q set Master 1dB-") --lower sound
-        , ((0, 0x1008ff12),     spawn "amixer -q set Master toggle") --mute sound
-        , ((0, 0x1008ff2c),     spawn "eject") --eject cd
+        , ((mod4Mask .|. shiftMask, xK_p),       spawn "'scrot' -e 'mv $f ~/pictures/screenshots'") --take screenshot
+        , ((mod4Mask, xK_F7),     spawn "xbacklight -inc 20") --raise backlight
+        , ((mod4Mask, xK_F6),     spawn "xbacklight -dec 10") --lower backlight
+        , ((mod4Mask, xK_F10),    spawn "amixer -q set Master 2dB+") --raise sound
+        , ((mod4Mask, xK_F9),     spawn "amixer -q set Master 1dB-") --lower sound
+        , ((mod4Mask, xK_F8),     spawn "amixer -q set Master toggle") --mute sound
         ]

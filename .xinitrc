@@ -17,7 +17,6 @@ xrdb ~/.Xresources
 # Autostart Programs
 xcompmgr &
 urxvtd &
-xcompmgr &
 
 # Start window manager
 exec ck-launch-session xmonad

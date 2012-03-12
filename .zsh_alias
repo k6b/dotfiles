@@ -1,4 +1,5 @@
 alias rscreen='screen -r'
+<<<<<<< HEAD
 
 #ssh
 alias sshsamy='ssh k6b@192.168.1.3'
@@ -8,18 +9,44 @@ alias ec2k6b='ssh k6b@107.20.208.25'
 alias chunkssh='ssh -t 107.20.208.25  ssh 69.172.212.23'
 
 #alias ls='ls -a --color=auto'
+=======
+alias d='dig'
+alias p='ping'
+alias wh='whois'
+alias less='vimpager'
+alias alsi='alsi -a'
+
+#ssh
+alias sshsamy='ssh k6b@192.168.1.3'
+alias crap1='ssh k6b@208.115.198.34 -p 1337'
+alias crap2='ssh k6b@208.115.198.37 -p 1337'
+alias dns1='ssh kberry@server1.sigabrt.com -p 222'
+alias dns2='ssh kberry@server2.sigabrt.com -p 222'
+alias kssh='ssh k6b@91.121.29.227'
+alias sdf='ssh k6b@sdf.org'
+alias sandbox='ssh k6b@50.56.203.227'
+alias relay='ssh k6b@108.166.65.37'
+
+>>>>>>> cr-48
 alias grep='grep --color=auto'
 alias more='less'
 alias mkdir='mkdir -p -v'
 alias nano='nano -w'
+<<<<<<< HEAD
 alias ping='ping -c 5'
+=======
+>>>>>>> cr-48
 alias ..='cd ..'
 alias ,,='..'
 alias ....="../../.."
 alias .....="../../../.."
 
 # pacman
+<<<<<<< HEAD
 alias pacman='sudo pacman-color'
+=======
+alias pacman='sudo pacman'
+>>>>>>> cr-48
 alias update='pacman -Syyu'
 alias remove='pacman -Rsc'
 alias install='pacman -S'
@@ -28,6 +55,7 @@ alias icanhaz='pacman -S'
 
 # ls
 alias ls='ls -hF --color=always'
+<<<<<<< HEAD
 alias lr='ls -R'                    # recursive ls
 alias ll='ls -l'
 alias la='ls -a'
@@ -35,16 +63,31 @@ alias lA='ll -A'
 alias lx='ll -BX'                   # sort by extension
 alias lz='ll -rS'                   # sort by size
 alias lt='ll -rt'                   # sort by date
+=======
+alias lr='ls -R'                # recursive ls
+alias ll='ls -l'
+alias la='ls -a'
+alias lA='ll -A'
+alias lx='ll -BX'               # sort by extension
+alias lz='ll -rS'               # sort by size
+alias lt='ll -rt'               # sort by date
+>>>>>>> cr-48
 alias lm='la | more'
 alias lla='ll -a'
 
 # safety features
 alias cp='cp -i'
 alias mv='mv -i'
+<<<<<<< HEAD
 alias rm='rm -I'                    # 'rm -i' prompts for every file
 alias ln='ln -i'
 
 #Folders
 alias logs='cd /var/log'
 
+=======
+alias rm='rm -I'                # 'rm -i' prompts for every file
+alias ln='ln -i'
+
+>>>>>>> cr-48
 alias fuck='curl -s rage.thewaffleshop.net'
