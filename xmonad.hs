@@ -2,15 +2,19 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Run
+import XMonad.Util.EZConfig
+import XMonad.Util.NamedWindows(getName)
 import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
 import XMonad.Layout.Grid
 import XMonad.Prompt
 import XMonad.Prompt.Man
+import XMonad.Hooks.UrgencyHook
 import System.IO
+import qualified XMonad.StackSet as W
+--import qualified Data.Map        as M
 
 myModMask = mod4Mask 
 myTerminal = "urxvtc" --my preferred terminal
@@ -53,6 +57,24 @@ myLayoutHook = onWorkspace ".42." gimp $ onWorkspace "Don't" terminalLayout $ on
                 nmaster = 1 --number of windows in master pane1
                 ratio = 3/4 --ratio of master pane size 
                 delta = 2/100
+--libnotify config
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+    urgencyHook LibNotifyUrgencyHook w = do
+        name <- getName w
+        ws <- gets windowset
+	whenJust (W.findTag w ws) (flash (show name))
+     where flash name index = spawn $ unwords
+             [ "notify-send"
+             , summary name
+             , body name index
+             ]
+           summary name = quote . unwords $ ["urgent:", name]
+           body name index = quote . unwords $ ["urgent alert from", name, "on workspace", index]
+
+quote :: String -> String
+quote = wrap "\"" "\""
 --xmobar config
 myLogHook h = dynamicLogWithPP xmobarPP
             { ppHidden = xmobarColor "grey" "" --tag color
@@ -86,6 +108,4 @@ main = do
         , ((mod4Mask, xK_F10),    spawn "amixer -q set Master 2dB+") --raise sound
         , ((mod4Mask, xK_F9),     spawn "amixer -q set Master 1dB-") --lower sound
         , ((mod4Mask, xK_F8),     spawn "amixer -q set Master toggle") --mute sound
-        , ((mod4Mask, xK_Up),     spawn "xdotool key Page_Up")
-        , ((mod4Mask, xK_Down),   spawn "xdotool key Page_Down")
         ]
