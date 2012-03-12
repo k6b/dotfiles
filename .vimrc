@@ -5,7 +5,6 @@ set ruler
 
 set formatoptions=c,q,r,t
 
-
 set autoindent
 
 set ignorecase

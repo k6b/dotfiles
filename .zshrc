@@ -32,8 +32,6 @@ XDG_VIDEOS_DIR="$HOME/videos"
 
 export PATH=$PATH:/home/k6b/scripts
 
-# 
-
 alsi
 
 #Prompt
@@ -47,10 +45,6 @@ zstyle ':completion:*' menu select
 setopt completealiases
 
 autoload -U colors && colors
-
-#Prompt
-DONTSETRPROMPT=1
-RPROMPT="%B%{$fg[yellow]%}%@%{$reset_color%}%b"
 
 autoload -Uz promptinit
 promptinit
