@@ -19,7 +19,8 @@ xcompmgr &
 urxvtd &
 
 # Map screens
-xrandr --auto --output DVI-1 --right-of DVI-0
+#xrandr --auto --output DVI-1 --right-of DVI-0 
+#xrandr --auto --output DVI-0 --left-of DVI-1 --rotate normal --output DVI-1 --rotate left
 
 # Start window manager
 exec ck-launch-session xmonad
