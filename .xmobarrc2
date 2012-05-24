@@ -2,19 +2,45 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
 	, bgColor = "black"
 	, fgColor = "grey"
 	, position = BottomW L 100
-	, lowerOnStart = True
-	, commands = [ Run Weather "KAUS" ["-t","<tempF>° <rh>%","-L","64","-H","77","--normal","green","--high","red","--low","blue"] 36000
-		, Run Memory ["-t","Mem: <usedratio>%","-L","30","-H","75","--low","green","--normal","yellow","--high","red"] 10
-		, Run Swap [] 10
-		, Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 15
-		, Run DiskU [("sda2", "/: <usedp>"), ("sda1", "/boot: <usedp>"), ("sda4", "/home: <usedp>"), ("sda3", "/var: <usedp>")] []  60
-		, Run DiskIO [("/", "/: <total>"), ("/boot", "/boot: <total>"), ("/home", "/home: <total>"), ("/var", "/var: <total>")] [] 10
-		, Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
-		, Run Com "/home/k6b/scripts/volume.sh" [] "vol" 10
-		, Run Com "/home/k6b/scripts/temp.sh" [] "temp" 10
-		, Run Com "/home/k6b/scripts/ip.sh" [] "myip" 300
-		]
+        , lowerOnStart = True
+	, border = NoBorder,
+	, borderColor = "grey90"
+        , commands = [ 
+		  Run Weather "KAUS" 
+			["-t", "<tempF>F <rh>%",
+			"-L", "64", "-H", "80",
+			"-l", "blue", "-n", "green", "-h", "red",
+			"-L", "50", "-H", "75",
+			"-l", "blue", "-n", "green", "-h", "red"]
+			36000
+                , Run Memory 
+			["-t", "mem: <usedratio>% (<rest>)",
+			"-L", "45", "-H", "80",
+			"-l", "green", "-n", "yellow", "-h", "red",
+			"-L", "300", "-H", "1200",
+			"-l", "red", "-n", "yellow", "-h", "green"]
+			10
+                , Run Network "wlan0" 
+			["-L", "1", "-H", "2",
+			"-l", "blue", "-n", "lightblue", "-h", "green"]
+			15
+		, Run CoreTemp 
+			["-t", "ctemp: <core0>C",
+			"-L", "40", "-H", "64",
+			"-l", "lightblue", "-n", "gray90", "-h", "red"]
+			50
+		, Run BatteryP ["BAT0"]
+			["-t", "<acstatus> <leftbar>",
+			"-L", "50", "-H", "75",
+			"-h", "green", "-n", "yellow", "-l", "red",
+			"--", "-O", "<fc=green> On</fc>", "-o", "<fc=red>Off</fc>"]
+			60
+                , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
+                , Run Com "/home/k6b/scripts/volume.sh" [] "vol" 10
+                , Run Com "/home/k6b/scripts/ip.sh" [] "myip" 300
+                ]
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = " %KAUS% | %wlan0% | %temp% }{ %reddit% | %myip% | %memory% | %vol% "
+	, template = " %KAUS% | %wlan0% | %coretemp% | %thermal0% }{ %reddit% | %myip% | %memory% | %vol% "
 	}
+
