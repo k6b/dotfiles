@@ -4,13 +4,21 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
 	, position = TopW L 100
 	, lowerOnStart = True
 	, commands = [ Run Date "%a %b %_d %H:%M" "date" 10
-		, Run MultiCpu ["-L","3","-H","50","--normal","green","--high","red","-p","3","-t","Cpu: <total0> <total1>"] 10
-		, Run Battery ["-t","Batt: <left>","-L","50","-H","75","--high","green","--normal","yellow","--low","red"] 10
+		, Run MultiCpu ["-t","cpu: <bar>",
+			"-L", "0", "-H", "50",
+			"-n", "green", "-h", "red"]
+			10
+		, Run BatteryP ["BAT0"] 
+			["-t", "batt: <leftbar> <acstatus>",
+			"-L", "50", "-H", "75",
+			"-h", "green", "-m", "yellow", "-l", "red",
+			"--", "-O", "<fc=green> On</fc>", "-o", "<fc=red>Off</fc>"]
+			10
 		, Run Com "/home/k6b/scripts/wireless.sh" [] "wireless" 10
 		, Run Com "awk '{print $1,$2,$3}' /proc/loadavg" [] "load" 10
 		, Run StdinReader
 		]
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = "%StdinReader% }{ %wireless% %load% %multicpu% %battery% <fc=#ee9a00>%date% </fc> "
+	, template = "%StdinReader% }{ %wireless% %battery% %multicpu% %load% <fc=#ee9a00>%date% </fc> "
 	}
