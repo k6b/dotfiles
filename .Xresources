@@ -6,18 +6,19 @@
 
 
 URxvt*termName: rxvt
-URxvt.depth: 32
-URxvt.background: rgba:1111/1111/1111/dddd
+URxvt*depth: 32
+!URxvt*background: rgba:1111/1111/1111/dddd
+URxvt*background: rgba:0000/0000/0000/4444
 !Window Colors
 URxvt*foreground: White
-URxvt*background: Black
+!URxvt*background: Black
 !Scrollbar
 URxvt*scrollBar:none
 !Fonts
 URxvt*font: xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
 URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=14:antialias=true:hinting=true
 !Tabs
-URxvt.perl-ext-common: default,tabbed,matcher,clipboard,url-select
+URxvt.perl-ext-common: default,tabbed,matcher,url-select
 !clickable url
 URxvt.keysym.M-m:       perl:url-select:select_next
 URxvt.urlLauncher:      /usr/bin/chromium
@@ -28,7 +29,7 @@ URxvt.buffered:  true
 URxvt*saveLines:50000
 
 !jump to bottom (prompt) when tty gets new lines
-urxvt*scrollWithBuffer:   true
+!urxvt*scrollWithBuffer:   true
 !jump to bottom (prompt) on tty output
 urxvt*scrollTtyOutput:    false
 
