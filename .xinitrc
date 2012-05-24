@@ -19,4 +19,4 @@ xcompmgr &
 urxvtd &
 
 # Start window manager
-exec ck-launch-session xmonad
+exec xmonad
