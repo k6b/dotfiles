@@ -26,15 +26,14 @@ Config { font = "xft:DejaVu Sans Mono:pixelsize=12"
 			15
 		, Run CoreTemp 
 			["-t", "ctemp: <core0>C",
-			"-L", "40", "-H", "64",
+			"-L", "47", "-H", "64",
 			"-l", "lightblue", "-n", "gray90", "-h", "red"]
 			50
-		, Run BatteryP ["BAT0"]
-			["-t", "<acstatus> <leftbar>",
-			"-L", "50", "-H", "75",
-			"-h", "green", "-n", "yellow", "-l", "red",
-			"--", "-O", "<fc=green> On</fc>", "-o", "<fc=red>Off</fc>"]
-			60
+		, Run ThermalZone 0
+			["-t", "temp: <temp>C",
+			"-L", "47", "-H", "64",
+			"-l", "lightblue", "-n", "gray90", "-h", "red"]
+			50
                 , Run Com "/home/k6b/scripts/xreddit.sh" ["4wd22r"] "reddit" 9000
                 , Run Com "/home/k6b/scripts/volume.sh" [] "vol" 10
                 , Run Com "/home/k6b/scripts/ip.sh" [] "myip" 300
